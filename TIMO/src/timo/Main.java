@@ -23,5 +23,8 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		for(SmartPost sp : Xml2DataBuilder.parsePostData()) {
+			System.out.println(sp.getCity() + " " + sp.getAddress());
+		}
 	}
 }

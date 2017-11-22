@@ -6,9 +6,8 @@ public class SmartPost {
 	private String address;
 	private String availability;
 	private String postoffice;
-	private String lat;
-	private String lng;
-	// Osaluokka GeoPoint?
+	private Geopoint gp;
+
 	
 	public SmartPost(String code, String city, String addr, String avail, String po, String lat, String lng) {
 		this.code = code;
@@ -16,8 +15,7 @@ public class SmartPost {
 		this.address= addr;
 		this.availability = avail;
 		this.postoffice = po;
-		this.lat = lat;
-		this.lng = lng;
+		this.gp = new Geopoint(lat, lng);
 	}
 
 	public String getCity() {
@@ -28,4 +26,14 @@ public class SmartPost {
 		return address;
 	}
 
+
+	class Geopoint {
+		private String lat;
+		private String lng;
+		
+		public Geopoint(String lat, String lng) {
+			this.lat = lat;
+			this.lng = lng;
+		}
+	}
 }

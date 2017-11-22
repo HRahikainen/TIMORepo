@@ -19,6 +19,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class Xml2DataBuilder {
+
 	private static Document doc;
 	
 	private static ArrayList<SmartPost> getPostData() {

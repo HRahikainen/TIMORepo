@@ -1,6 +1,6 @@
 package timo;
 
-public abstract class PackageObject {
+public abstract class Item {
 	private double mass;
 	private double size;
 	private boolean isFragile;

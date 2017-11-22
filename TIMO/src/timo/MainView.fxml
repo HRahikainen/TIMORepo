@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="570.0" prefWidth="536.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="timo.MainViewController">
+<AnchorPane prefHeight="666.0" prefWidth="634.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="timo.MainViewController">
    <children>
       <TabPane layoutX="153.0" layoutY="105.0" prefHeight="570.0" prefWidth="536.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -25,7 +24,6 @@
                             <RowConstraints maxHeight="257.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button fx:id="loadMapBtn" mnemonicParsing="false" onAction="#loadMap" text="Button" GridPane.rowIndex="1" />
                               <WebView fx:id="wv" prefHeight="200.0" prefWidth="200.0" />
                            </children>
                         </GridPane>

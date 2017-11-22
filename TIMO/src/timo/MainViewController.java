@@ -11,16 +11,11 @@ import javafx.scene.web.WebView;
 
 public class MainViewController implements Initializable{
 
-	@FXML private Button loadMapBtn;
 	@FXML private WebView wv;
 
-    @FXML void loadMap(ActionEvent event) {
-    	wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
-    }
-    
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		wv.getEngine().load("http://www.google.com");
+		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 	}
 	
 }

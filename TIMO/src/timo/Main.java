@@ -26,6 +26,7 @@ public class Main extends Application {
 		for(SmartPost sp : Xml2DataBuilder.parsePostData()) {
 			System.out.println(sp.getCity() + " " + sp.getAddress());
 		}
+		DBHandler.createNewDatabase("test.db");
 		launch(args);
 	}
 }

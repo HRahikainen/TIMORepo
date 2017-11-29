@@ -41,6 +41,7 @@ public class MainViewController implements Initializable{
             		FXMLLoader.load(getClass().getResource("PackageInfoView.fxml"));
             Scene packageInfoScene = new Scene(page);
             packageInfoStage.setScene(packageInfoScene);
+            packageInfoStage.setTitle("Pakettitiedot");
             packageInfoStage.show();
         } catch (IOException ex) {
             System.err.println("Error occured.");

@@ -4,7 +4,7 @@ public class PackageInfo {
 	// Adapted from Olio-Opas Osa 2
 	// Will contain data fetched from package creation window
 	private static PackageInfo instance = null;
-    private String text;
+    private String text; // legacy, to be replaced soon
     
     protected PackageInfo() {}
     

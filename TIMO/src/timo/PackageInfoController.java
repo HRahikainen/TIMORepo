@@ -12,17 +12,19 @@ import javafx.stage.Stage;
 
 public class PackageInfoController implements Initializable {
 	    
-	    @FXML private Button okButton;
+	    @FXML private Button createButton;
 	    @FXML private Button cancelButton;
-	    @FXML private RadioButton radioBtn;
+	    @FXML private RadioButton radioBtn1;
+	    @FXML private RadioButton radioBtn2;
+	    @FXML private RadioButton radioBtn3;
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	    }
 	    
-	    @FXML public void okButtonClicked(ActionEvent event) {
+	    @FXML public void createButtonClicked(ActionEvent event) {
 	        PackageInfo.getInstance().setText("");
-	        closeWindow(okButton);
+	        closeWindow(createButton);
 	    }
 	    
 	    @FXML public void cancelButtonClicked(ActionEvent event) {

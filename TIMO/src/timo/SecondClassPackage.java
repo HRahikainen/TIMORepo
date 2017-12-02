@@ -1,5 +1,5 @@
 package timo;
 
-public class SecondClassPackage extends Package {
+public abstract class SecondClassPackage extends Package {
 
 }

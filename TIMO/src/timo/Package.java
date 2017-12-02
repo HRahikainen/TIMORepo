@@ -1,6 +1,6 @@
 package timo;
 
-public abstract class Package {
-	private double size;
+public abstract class Package{
+	private double sizeLimit;
 	private double weightLimit;
 }

@@ -26,6 +26,21 @@ public class SmartPost {
 		return address;
 	}
 
+	public String getCode() {
+		return code;
+	}
+
+	public String getAvailability() {
+		return availability;
+	}
+
+	public String getPostoffice() {
+		return postoffice;
+	}
+
+	public Geopoint getGp() {
+		return gp;
+	}
 
 	class Geopoint {
 		private String lat;

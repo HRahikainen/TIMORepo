@@ -2,6 +2,7 @@ package timo;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -22,19 +23,54 @@ public class MainViewController implements Initializable{
     @FXML private Tab mapTab;
     @FXML private Button addSPBtn;
     @FXML private Button newPackageBtn;
+    @FXML private Button sendPackageBtn;
     @FXML private Tab logTab;
     @FXML private Button clearMapBtn;
     @FXML private ComboBox<?> choosePackageList;
     @FXML private ListView<?> logListView;
-    @FXML private ComboBox<?> chooseCityList;
+    @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
+	
+	private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
+		smartPostList = Xml2DataBuilder.parsePostData();
+		for(SmartPost sp : smartPostList) {
+			// Add each city only once
+			if(!chooseCityList.getItems().contains(sp.getCity())){
+				chooseCityList.getItems().add(sp.getCity());
+			}
+		}
+	}
+	
+	@FXML void addMapMarkers(ActionEvent event) {
+		String city = chooseCityList.getValue();
+		for(SmartPost sp : smartPostList) {
+			if(city.equals(sp.getCity())) {
+				String searchString = sp.getAddress() + "," + sp.getCode() + " " + city;
+				String infoString = sp.getPostoffice() + " " + sp.getAvailability();
+				String color = "green";
+				String scriptString = "document.goToLocation(" + "'" + searchString + "'" + "," +  "'" + infoString + "'"  + "," + "'" + color +  "'" + ")";
+				System.out.println(scriptString);
+				wv.getEngine().executeScript(scriptString);
+				// Surprise, surprise, Hanko is missing
+			}
+		}
+	}
+	
+	@FXML void deletePaths(ActionEvent event) {
+		wv.getEngine().executeScript("document.deletePaths()");
+		// Also remove calculated paths?
+    }
+	
+	@FXML void sendPackage(ActionEvent event) {
+		//wv.getEngine().executeScript("document.createPath(arraylist, string, int)");
 	}
 	
 	@FXML public void packageInfoWindow(ActionEvent event) {
+		//TODO: Need to prevent duplicates of this window
         try {
             Stage packageInfoStage = new Stage();
             Parent page =
@@ -42,6 +78,8 @@ public class MainViewController implements Initializable{
             Scene packageInfoScene = new Scene(page);
             packageInfoStage.setScene(packageInfoScene);
             packageInfoStage.setTitle("Pakettitiedot");
+            packageInfoStage.setMinHeight(600);
+            packageInfoStage.setMinWidth(600);
             packageInfoStage.show();
         } catch (IOException ex) {
             System.err.println("Error occured.");

@@ -1,6 +1,7 @@
 package timo;
 	
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +19,7 @@ public class Main extends Application {
 			primaryStage.setTitle("TIMO Package Manager");
 			primaryStage.setMinHeight(800);
 			primaryStage.setMinWidth(800);
+			primaryStage.setOnCloseRequest(e -> Platform.exit()); // Close application on main window close
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -25,9 +27,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		for(SmartPost sp : Xml2DataBuilder.parsePostData()) {
-			System.out.println(sp.getCity() + " " + sp.getAddress());
-		}
 		// DBHandler.createNewDatabase("test.db");
 		launch(args);
 	}

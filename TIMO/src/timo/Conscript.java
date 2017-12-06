@@ -1,13 +1,11 @@
 package timo;
 
-public class Conscript {
-	
-	private Item item;
+public class Conscript extends Item{
 	
 	public Conscript() {
-		item.setMass(10);
-		item.setFragile(true);
-		item.setSize(180);
+		setMass(10);
+		setFragile(true);
+		setSize(180);
 	}
 	
 }

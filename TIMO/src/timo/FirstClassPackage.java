@@ -7,6 +7,6 @@ public class FirstClassPackage extends Package {
 	public static double maxSize = 10;
 	
 	public FirstClassPackage() {
-
+		//System.out.println(this.getClass());
 	}
 }

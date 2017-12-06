@@ -23,7 +23,20 @@ public class PackageInfoController implements Initializable {
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
-	        PackageInfo.getInstance().setText("");
+	    	String packageType = null;
+	    	// Should these be hardcoded Strings or fetched from the UI? Which is more reliable?
+	    	if(radioBtn1.isSelected()) {
+	    		packageType = "1.luokka";
+	    	}else if(radioBtn2.isSelected()) {
+	    		packageType = "2.luokka";
+	    	}else if(radioBtn3.isSelected()) {
+	    		packageType = "3.luokka";
+	    	}
+	    	Package p = PackageFactory.getInstance().newPackage(packageType); // Send params here or via setter?
+	    	if( p != null) {
+	    		Storage.getInstance().getPackages().add(p);
+	    	}
+	        //System.out.println(Storage.getInstance().getPackages());
 	        closeWindow(createButton);
 	    }
 	    

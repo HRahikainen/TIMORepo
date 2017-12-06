@@ -26,7 +26,7 @@ public class MainViewController implements Initializable{
     @FXML private Button sendPackageBtn;
     @FXML private Tab logTab;
     @FXML private Button clearMapBtn;
-    @FXML private ComboBox<?> choosePackageList;
+    @FXML private ComboBox<Package> choosePackageList;
     @FXML private ListView<?> logListView;
     @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
@@ -66,7 +66,17 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		//wv.getEngine().executeScript("document.createPath(arraylist, string, int)");
+		//wv.getEngine().executeScript("document.createPath(arraylist [start lat, start lon, end lat, end lon], String color, int packageClass)");
+	}
+	
+	@FXML void fillPackageBox() {
+		ArrayList<Package> packages = Storage.getInstance().getPackages();
+		for(Package p : packages) {
+			// Add each city only once
+			if(!choosePackageList.getItems().contains(p)){
+				choosePackageList.getItems().add(p);
+			}
+		}
 	}
 	
 	@FXML public void packageInfoWindow(ActionEvent event) {
@@ -80,6 +90,7 @@ public class MainViewController implements Initializable{
             packageInfoStage.setTitle("Pakettitiedot");
             packageInfoStage.setMinHeight(600);
             packageInfoStage.setMinWidth(600);
+            packageInfoStage.setOnHidden(e -> fillPackageBox()); // See when to update list
             packageInfoStage.show();
         } catch (IOException ex) {
             System.err.println("Error occured.");

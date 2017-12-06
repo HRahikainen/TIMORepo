@@ -1,5 +1,7 @@
 package timo;
 
-public abstract class SecondClassPackage extends Package {
-
+public class SecondClassPackage extends Package {
+	public SecondClassPackage() {
+		//System.out.println(this.getClass());
+	}
 }

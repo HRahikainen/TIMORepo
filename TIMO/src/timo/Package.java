@@ -9,7 +9,7 @@ public abstract class Package{
 	private String destination;
 	
 	// Allow info to be written after creation regardless of subclass
-	public void setInfo(Item i, String start, String dest ) {
+	public void setInfo(Item i, String start, String dest) {
 		this.pItem = i;
 		this.startPoint = start;
 		this.destination = dest;

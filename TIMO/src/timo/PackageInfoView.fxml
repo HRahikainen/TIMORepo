@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="440.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="timo.PackageInfoController">
+<AnchorPane prefHeight="600" prefWidth="600" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="timo.PackageInfoController">
    <children>
       <GridPane layoutX="185.0" layoutY="110.0" prefHeight="440.0" prefWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -27,8 +27,8 @@
         <rowConstraints>
             <RowConstraints maxHeight="484.0" minHeight="0.0" prefHeight="71.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="484.0" minHeight="0.0" prefHeight="102.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="484.0" minHeight="10.0" prefHeight="140.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="295.0" minHeight="10.0" prefHeight="137.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="484.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="295.0" minHeight="10.0" prefHeight="116.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
@@ -72,6 +72,12 @@
                   <RadioButton fx:id="radioBtn2" mnemonicParsing="false" text="2.luokka" />
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
                   <RadioButton fx:id="radioBtn3" mnemonicParsing="false" text="3.luokka" />
+                  <Separator prefWidth="200.0" visible="false" />
+                  <Label fx:id="errorLabel" prefHeight="47.0" prefWidth="257.0" text="Fill all info and check one box!" textFill="#e10707">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
@@ -92,7 +98,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <HBox alignment="BOTTOM_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
                   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="25.0" prefWidth="111.0" text="Peruuta" />
                   <Separator orientation="VERTICAL" prefHeight="135.0" prefWidth="21.0" visible="false" />

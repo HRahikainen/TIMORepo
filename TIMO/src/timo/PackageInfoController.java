@@ -8,11 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
 public class PackageInfoController implements Initializable {
 	    
+		@FXML private Label errorLabel;
 	    @FXML private Button createButton;
 	    @FXML private Button cancelButton;
 	    @FXML private RadioButton radioBtn1;
@@ -27,6 +29,11 @@ public class PackageInfoController implements Initializable {
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
 	    	chooseItemList.getItems().add("Conscript");
+	    	chooseItemList.getItems().add("DankMeme");
+	    	chooseItemList.getItems().add("Pepe");
+	    	chooseItemList.getItems().add("SamsungGalaxyNoteSeven");
+	    	chooseItemList.getItems().add("Glasses");
+	    	errorLabel.setVisible(false);
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
@@ -38,20 +45,25 @@ public class PackageInfoController implements Initializable {
 	    		packageType = "2.luokka";
 	    	}else if(radioBtn3.isSelected()) {
 	    		packageType = "3.luokka";
-	    	} // TODO: Handle empty selection here
+	    	}else {
+	    		// TODO: Handle empty selection here
+	    		errorLabel.setVisible(true);
+	    		
+	    	}
 	    	Package p = PackageFactory.getInstance().newPackage(packageType);
-	    	// Check these before creation? Where to display messages?
+	    	// TODO:Check these before creation of objects!!!!!!!!!!!!!!!!!!
 	    	if( p != null) {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		if(i != null) {
 	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue());
 		    		p.printInfo();
 		    		Storage.getInstance().getPackages().add(p);
+		    		closeWindow(createButton);
 	    		}
 	    		
 	    	}
 	        //System.out.println(Storage.getInstance().getPackages());
-	        closeWindow(createButton);
+	        
 	    }
 	    
 	    @FXML public void cancelButtonClicked(ActionEvent event) {

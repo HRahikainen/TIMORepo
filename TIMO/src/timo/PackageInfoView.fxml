@@ -39,7 +39,7 @@
                      </font>
                   </Label>
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox prefWidth="150.0" promptText="Esinelista" />
+                  <ComboBox fx:id="chooseItemList" prefWidth="150.0" promptText="Esinelista" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -59,9 +59,9 @@
                      </font>
                   </Label>
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox prefWidth="150.0" promptText="Lähtökaupunki" />
+                  <ComboBox fx:id="startCityList" prefWidth="150.0" promptText="Lähtökaupunki" />
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox prefWidth="150.0" promptText="Automaatti" />
+                  <ComboBox fx:id="startSPList" prefWidth="150.0" promptText="Automaatti" />
                </children>
             </VBox>
             <VBox prefHeight="232.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -82,9 +82,9 @@
                      </font>
                   </Label>
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox prefWidth="150.0" promptText="Kohdekaupunki" />
+                  <ComboBox fx:id="destCityList" prefWidth="150.0" promptText="Kohdekaupunki" />
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox prefWidth="150.0" promptText="Automaatti" />
+                  <ComboBox fx:id="destSPList" prefWidth="150.0" promptText="Automaatti" />
                </children>
             </VBox>
             <Label text="Luo Paketti">

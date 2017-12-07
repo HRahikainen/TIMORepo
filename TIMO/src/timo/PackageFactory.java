@@ -15,10 +15,7 @@ public class PackageFactory {
     }
     
 	public Package newPackage(String packageType){
-		// Chooses first one that is selected if multiple are tried
-	      if(packageType == null){
-	         return null;
-	      }		
+		// Chooses first one that is selected if multiple are tried		
 	      if(packageType.equalsIgnoreCase("1.luokka")){
 	         return new FirstClassPackage();
 	         

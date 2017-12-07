@@ -32,6 +32,7 @@ public class MainViewController implements Initializable{
 	@FXML private WebView wv;
 	
 	private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
+	private boolean infoWindowActive = false;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -80,21 +81,24 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML public void packageInfoWindow(ActionEvent event) {
-		//TODO: Need to prevent duplicates of this window
-        try {
-            Stage packageInfoStage = new Stage();
-            Parent page =
-            		FXMLLoader.load(getClass().getResource("PackageInfoView.fxml"));
-            Scene packageInfoScene = new Scene(page);
-            packageInfoStage.setScene(packageInfoScene);
-            packageInfoStage.setTitle("Pakettitiedot");
-            packageInfoStage.setMinHeight(600);
-            packageInfoStage.setMinWidth(600);
-            packageInfoStage.setOnHidden(e -> fillPackageBox()); // See when to update list
-            packageInfoStage.show();
-        } catch (IOException ex) {
-            System.err.println("Error occured.");
-        }
+		// Prevent duplicates of this window
+		if(!infoWindowActive) {
+	        try {
+	            Stage packageInfoStage = new Stage();
+	            Parent page =
+	            		FXMLLoader.load(getClass().getResource("PackageInfoView.fxml"));
+	            Scene packageInfoScene = new Scene(page);
+	            packageInfoStage.setScene(packageInfoScene);
+	            packageInfoStage.setTitle("Pakettitiedot");
+	            packageInfoStage.setMinHeight(600);
+	            packageInfoStage.setMinWidth(600);
+	            packageInfoStage.setOnHidden(e -> {fillPackageBox(); infoWindowActive = false;}); // See when to update list
+	            packageInfoStage.show();
+	            infoWindowActive = true;
+	        } catch (IOException ex) {
+	            System.err.println("Error occured.");
+	       }
+		}
     }
 
 	

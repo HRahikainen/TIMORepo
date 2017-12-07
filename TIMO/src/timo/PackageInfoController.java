@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
@@ -17,9 +18,15 @@ public class PackageInfoController implements Initializable {
 	    @FXML private RadioButton radioBtn1;
 	    @FXML private RadioButton radioBtn2;
 	    @FXML private RadioButton radioBtn3;
+	    @FXML private ComboBox<String> destCityList;
+	    @FXML private ComboBox<String> startSPList;
+	    @FXML private ComboBox<String> destSPList;
+	    @FXML private ComboBox<String> chooseItemList;
+	    @FXML private ComboBox<String> startCityList;
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
+	    	chooseItemList.getItems().add("Conscript");
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
@@ -31,10 +38,17 @@ public class PackageInfoController implements Initializable {
 	    		packageType = "2.luokka";
 	    	}else if(radioBtn3.isSelected()) {
 	    		packageType = "3.luokka";
-	    	}
-	    	Package p = PackageFactory.getInstance().newPackage(packageType); // Send params here or via setter?
+	    	} // TODO: Handle empty selection here
+	    	Package p = PackageFactory.getInstance().newPackage(packageType);
+	    	// Check these before creation? Where to display messages?
 	    	if( p != null) {
-	    		Storage.getInstance().getPackages().add(p);
+	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
+	    		if(i != null) {
+	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue());
+		    		p.printInfo();
+		    		Storage.getInstance().getPackages().add(p);
+	    		}
+	    		
 	    	}
 	        //System.out.println(Storage.getInstance().getPackages());
 	        closeWindow(createButton);

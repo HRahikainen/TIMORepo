@@ -1,6 +1,7 @@
 package timo;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ public class PackageInfoController implements Initializable {
 	    @FXML private ComboBox<String> destSPList;
 	    @FXML private ComboBox<String> chooseItemList;
 	    @FXML private ComboBox<String> startCityList;
+	    
+	    private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
@@ -34,6 +37,17 @@ public class PackageInfoController implements Initializable {
 	    	chooseItemList.getItems().add("SamsungGalaxyNoteSeven");
 	    	chooseItemList.getItems().add("Glasses");
 	    	errorLabel.setVisible(false);
+	    	
+	    	smartPostList = Xml2DataBuilder.parsePostData();
+	    	//TODO: maybe get ArrayList from MainViewController instead of reloading from file?
+	    	
+	    	for(SmartPost sp : smartPostList) {
+				// Add each city only once
+				if(!destCityList.getItems().contains(sp.getCity())){
+					destCityList.getItems().add(sp.getCity());
+					startCityList.getItems().add(sp.getCity());
+				}
+			}
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
@@ -68,6 +82,10 @@ public class PackageInfoController implements Initializable {
 	    
 	    @FXML public void cancelButtonClicked(ActionEvent event) {
 	        closeWindow(cancelButton);
+	    }
+	    
+	    @FXML public void destCityChosed(ActionEvent event){
+	    	// Parse cityName from startCityList and list city's SmartPosts
 	    }
 	    
 	    public void closeWindow(Button button) {

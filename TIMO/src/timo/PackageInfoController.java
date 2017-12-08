@@ -90,7 +90,7 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from startCityList and list city's SmartPosts
 	    	startSPList.getItems().clear();
 	    	startCity = startCityList.getValue();
-	    	System.out.println("Valitsit lähtökaupungiksi" + startCity);
+	    	System.out.println("Valitsit lähtökaupungiksi: " + startCity);
 	    	for (SmartPost sp : smartPostList) {
 	    		if (sp.getCity().equals(startCity)) {
 	    			System.out.println(sp.getAddress());
@@ -104,7 +104,7 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from destCityList and list city's SmartPosts
 	    	destSPList.getItems().clear();
 	    	destCity = destCityList.getValue();
-	    	System.out.println("Valitsit määränpääkaupungiksi" + destCity);
+	    	System.out.println("Valitsit määränpääkaupungiksi: " + destCity);
 	    	for (SmartPost sp : smartPostList) {
 	    		if (sp.getCity().equals(destCity)) {
 	    			System.out.println(sp.getAddress());

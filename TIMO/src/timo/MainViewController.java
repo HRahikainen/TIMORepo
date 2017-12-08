@@ -33,7 +33,7 @@ public class MainViewController implements Initializable{
 	
 	private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 	private boolean infoWindowActive = false;
-
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
@@ -76,6 +76,7 @@ public class MainViewController implements Initializable{
 			// Add each city only once
 			if(!choosePackageList.getItems().contains(p)){
 				choosePackageList.getItems().add(p);
+				System.out.println(p.getInfo());
 			}
 		}
 	}

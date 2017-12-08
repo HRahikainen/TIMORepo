@@ -15,6 +15,10 @@ public abstract class Package{
 		this.destination = dest;
 	}
 	
+	public String getInfo() {
+		return "From: " + this.startPoint + " To: " + this.destination;
+	}
+	
 	// Debug method
 	public void printInfo() {
 		System.out.println(this.pItem.getClass());

@@ -88,13 +88,12 @@ public class PackageInfoController implements Initializable {
 	    
 	    @FXML public void startCityChosed(ActionEvent event){
 	    	// Parse cityName from startCityList and list city's SmartPosts
-	    	// TODO: empty SmartPost drop-down list before adding new city's automats
+	    	startSPList.getItems().clear();
 	    	startCity = startCityList.getValue();
 	    	System.out.println("Valitsit lähtökaupungiksi" + startCity);
 	    	for (SmartPost sp : smartPostList) {
-	    		if (sp.getCity() == startCity) {
-	    			System.out.println(sp);
-	    			// TODO: fix this. Only adds one SmartPost to list?
+	    		if (sp.getCity().equals(startCity)) {
+	    			System.out.println(sp.getAddress());
 	    			startSPList.getItems().add(sp.getAddress());
 	    		}
 	    	}
@@ -103,13 +102,12 @@ public class PackageInfoController implements Initializable {
 	    
 	    @FXML public void destCityChosed(ActionEvent event){
 	    	// Parse cityName from destCityList and list city's SmartPosts
-	    	// TODO: empty SmartPost drop-down list before adding new city's automats
+	    	destSPList.getItems().clear();
 	    	destCity = destCityList.getValue();
 	    	System.out.println("Valitsit määränpääkaupungiksi" + destCity);
 	    	for (SmartPost sp : smartPostList) {
-	    		if (sp.getCity() == destCity) {
-	    			System.out.println(sp);
-	    			// TODO: fix this. Only adds one SmartPost to list?
+	    		if (sp.getCity().equals(destCity)) {
+	    			System.out.println(sp.getAddress());
 	    			destSPList.getItems().add(sp.getAddress());
 	    		}
 	    	}

@@ -53,6 +53,7 @@ public class PackageInfoController implements Initializable {
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
+	    	Package p = null;
 	    	String packageType = null;
 	    	// Should these be hardcoded Strings or fetched from the UI? Which is more reliable?
 	    	if(radioBtn1.isSelected()) {
@@ -66,12 +67,27 @@ public class PackageInfoController implements Initializable {
 	    		errorLabel.setVisible(true);
 	    		
 	    	}
-	    	Package p = PackageFactory.getInstance().newPackage(packageType);
+	    	
+	    	// TODO: clean this up. if-statements throw null-point-exceptions...
+	    	try {
+	    		if(startSPList.getValue().equals(null)) {
+		    		errorLabel.setVisible(true);
+		    	} else if (destSPList.getValue().equals(null)) {
+		    		errorLabel.setVisible(true);
+		    	}
+		    	else {
+		    		p = PackageFactory.getInstance().newPackage(packageType);
+		    	}
+			} catch (Exception e) {
+				errorLabel.setVisible(true);
+			}
+	    
+	    	
 	    	// TODO:Check these before creation of objects!!!!!!!!!!!!!!!!!!
 	    	if( p != null) {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		if(i != null) {
-	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue());
+	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue(), packageType);
 		    		p.printInfo();
 		    		Storage.getInstance().getPackages().add(p);
 		    		closeWindow(createButton);

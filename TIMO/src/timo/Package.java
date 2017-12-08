@@ -7,16 +7,18 @@ public abstract class Package{
 	private Item pItem;
 	private String startPoint;
 	private String destination;
+	private String packageClass;
 	
 	// Allow info to be written after creation regardless of subclass
-	public void setInfo(Item i, String start, String dest) {
+	public void setInfo(Item i, String start, String dest, String packageClass) {
 		this.pItem = i;
 		this.startPoint = start;
 		this.destination = dest;
+		this.packageClass = packageClass;
 	}
 	
 	public String getInfo() {
-		return "From: " + this.startPoint + " To: " + this.destination;
+		return this.packageClass + " From: " + this.startPoint + " To: " + this.destination;
 	}
 	
 	// Debug method

@@ -26,10 +26,11 @@ public class MainViewController implements Initializable{
     @FXML private Button sendPackageBtn;
     @FXML private Tab logTab;
     @FXML private Button clearMapBtn;
-    @FXML private ComboBox<Package> choosePackageList;
     @FXML private ListView<?> logListView;
     @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
+	@FXML private ComboBox<String> choosePackageStringList;
+	
 	
 	private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 	private boolean infoWindowActive = false;
@@ -74,8 +75,8 @@ public class MainViewController implements Initializable{
 		ArrayList<Package> packages = Storage.getInstance().getPackages();
 		for(Package p : packages) {
 			// Add each city only once
-			if(!choosePackageList.getItems().contains(p)){
-				choosePackageList.getItems().add(p);
+			if(!choosePackageStringList.getItems().contains(p)){
+				choosePackageStringList.getItems().add(p.getInfo());
 				System.out.println(p.getInfo());
 			}
 		}

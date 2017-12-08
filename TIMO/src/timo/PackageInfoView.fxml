@@ -55,7 +55,7 @@
                      </font>
                   </Label>
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox fx:id="startCityList" onMousePressed="#destCityChosed" prefWidth="150.0" promptText="Lähtökaupunki" />
+                  <ComboBox fx:id="startCityList" onAction="#startCityChosed" prefWidth="150.0" promptText="Lähtökaupunki" />
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
                   <ComboBox fx:id="startSPList" prefWidth="150.0" promptText="Automaatti" />
                </children>
@@ -84,7 +84,7 @@
                      </font>
                   </Label>
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
-                  <ComboBox fx:id="destCityList" prefWidth="150.0" promptText="Kohdekaupunki" />
+                  <ComboBox fx:id="destCityList" onAction="#destCityChosed" prefWidth="150.0" promptText="Kohdekaupunki" />
                   <Separator prefHeight="11.0" prefWidth="241.0" visible="false" />
                   <ComboBox fx:id="destSPList" prefWidth="150.0" promptText="Automaatti" />
                </children>

@@ -13,7 +13,7 @@ public class ItemFactory {
     }
     
 	public Item newItem(String itemType){
-		// Chooses first one that is selected if multiple are tried
+
 		if(itemType == null) {
 			return null;
 		}

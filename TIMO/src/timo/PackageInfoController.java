@@ -1,7 +1,6 @@
 package timo;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -29,7 +28,6 @@ public class PackageInfoController implements Initializable {
 	    private String destCity;
 	    private String startCity;
 	    
-	    private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 
 	    @Override
 	    public void initialize(URL url, ResourceBundle rb) {
@@ -40,10 +38,7 @@ public class PackageInfoController implements Initializable {
 	    	chooseItemList.getItems().add("Glasses");
 	    	errorLabel.setVisible(false);
 	    	
-	    	smartPostList = Xml2DataBuilder.parsePostData();
-	    	//TODO: maybe get ArrayList from MainViewController instead of reloading from file?
-	    	
-	    	for(SmartPost sp : smartPostList) {
+	    	for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 				// Add each city only once
 				if(!destCityList.getItems().contains(sp.getCity())){
 					destCityList.getItems().add(sp.getCity());
@@ -55,27 +50,19 @@ public class PackageInfoController implements Initializable {
 	    @FXML public void createButtonClicked(ActionEvent event) {
 	    	Package p = null;
 	    	String packageType = null;
-	    	// Should these be hardcoded Strings or fetched from the UI? Which is more reliable?
+	    	
 	    	if(radioBtn1.isSelected()) {
 	    		packageType = "1.luokka";
 	    	}else if(radioBtn2.isSelected()) {
 	    		packageType = "2.luokka";
 	    	}else if(radioBtn3.isSelected()) {
 	    		packageType = "3.luokka";
-	    	}else {
-	    		// TODO: Handle empty selection here
-	    		errorLabel.setVisible(true);
-	    		
 	    	}
 	    	
-	    	// TODO: clean this up. if-statements throw null-point-exceptions...
 	    	try {
-	    		if(startSPList.getValue().equals(null)) {
+	    		if((startSPList.getValue() == null) || (destSPList.getValue() == null) || (packageType == null) || (chooseItemList.getValue() == null)) {
 		    		errorLabel.setVisible(true);
-		    	} else if (destSPList.getValue().equals(null)) {
-		    		errorLabel.setVisible(true);
-		    	}
-		    	else {
+		    	} else {
 		    		p = PackageFactory.getInstance().newPackage(packageType);
 		    	}
 			} catch (Exception e) {
@@ -86,6 +73,7 @@ public class PackageInfoController implements Initializable {
 	    	// TODO:Check these before creation of objects!!!!!!!!!!!!!!!!!!
 	    	if( p != null) {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
+	    		// Possibly redundant if-clause
 	    		if(i != null) {
 	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue(), packageType);
 		    		p.printInfo();
@@ -107,7 +95,7 @@ public class PackageInfoController implements Initializable {
 	    	startSPList.getItems().clear();
 	    	startCity = startCityList.getValue();
 	    	System.out.println("Valitsit lähtökaupungiksi: " + startCity);
-	    	for (SmartPost sp : smartPostList) {
+	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(startCity)) {
 	    			System.out.println(sp.getAddress());
 	    			startSPList.getItems().add(sp.getAddress());
@@ -121,7 +109,7 @@ public class PackageInfoController implements Initializable {
 	    	destSPList.getItems().clear();
 	    	destCity = destCityList.getValue();
 	    	System.out.println("Valitsit määränpääkaupungiksi: " + destCity);
-	    	for (SmartPost sp : smartPostList) {
+	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(destCity)) {
 	    			System.out.println(sp.getAddress());
 	    			destSPList.getItems().add(sp.getAddress());

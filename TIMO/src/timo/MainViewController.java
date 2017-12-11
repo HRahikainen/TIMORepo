@@ -31,15 +31,14 @@ public class MainViewController implements Initializable{
 	@FXML private WebView wv;
 	@FXML private ComboBox<String> choosePackageStringList;
 	
-	
-	private ArrayList<SmartPost> smartPostList = new ArrayList<SmartPost>();
 	private boolean infoWindowActive = false;
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
-		smartPostList = Xml2DataBuilder.parsePostData();
-		for(SmartPost sp : smartPostList) {
+		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
+		
+		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 			// Add each city only once
 			if(!chooseCityList.getItems().contains(sp.getCity())){
 				chooseCityList.getItems().add(sp.getCity());
@@ -49,7 +48,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML void addMapMarkers(ActionEvent event) {
 		String city = chooseCityList.getValue();
-		for(SmartPost sp : smartPostList) {
+		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 			if(city.equals(sp.getCity())) {
 				String searchString = sp.getAddress() + "," + sp.getCode() + " " + city;
 				String infoString = sp.getPostoffice() + " " + sp.getAvailability();

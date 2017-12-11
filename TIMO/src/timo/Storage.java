@@ -3,7 +3,6 @@ package timo;
 import java.util.ArrayList;
 
 public class Storage {
-	// Stores Packages, should SmartPost-objects store their own after they've been sent?
 	private static Storage instance = null;
 	private ArrayList<Package> packageList = null;
 	

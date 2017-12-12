@@ -3,6 +3,7 @@ package timo;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -67,14 +68,20 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		//wv.getEngine().executeScript("document.createPath(arraylist [start lat, start lon, end lat, end lon], String color, int packageClass)");
+		// Something like this?
+		//ArrayList<Float> coords = new ArrayList<Float>();
+		//Package chosenPackage = Storage.getInstance().getPackages().get(something);
+		//SmartPost sp1 = SmartPostManager.srcPost(chosenPackage.getStart());
+		//SmartPost sp2 = SmartPostManager.srcPost(chosenPackage.getDest());
+		//Collections.addAll(coords, sp1.getGp().getLat(), sp1.getGp().getLon(), sp2.getGp().getLat(), sp2.getGp().getLon());
+		//double dist = (double) wv.getEngine().executeScript("document.createPath(coords, 'red', int packageClass)");
 	}
 	
 	@FXML void fillPackageBox() {
 		ArrayList<Package> packages = Storage.getInstance().getPackages();
 		for(Package p : packages) {
 			// Add each city only once
-			if(!choosePackageStringList.getItems().contains(p)){
+			if(!choosePackageStringList.getItems().contains(p.getInfo())){
 				choosePackageStringList.getItems().add(p.getInfo());
 				System.out.println(p.getInfo());
 			}
@@ -90,6 +97,7 @@ public class MainViewController implements Initializable{
 	            		FXMLLoader.load(getClass().getResource("PackageInfoView.fxml"));
 	            Scene packageInfoScene = new Scene(page);
 	            packageInfoStage.setScene(packageInfoScene);
+	            packageInfoScene.getStylesheets().add(getClass().getResource("info.css").toExternalForm());
 	            packageInfoStage.setTitle("Pakettitiedot");
 	            packageInfoStage.setMinHeight(600);
 	            packageInfoStage.setMinWidth(600);

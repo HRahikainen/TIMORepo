@@ -69,21 +69,23 @@ public class PackageInfoController implements Initializable {
 				errorLabel.setVisible(true);
 			}
 	    
-	    	
-	    	// TODO:Check these before creation of objects!!!!!!!!!!!!!!!!!!
 	    	if( p != null) {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		// Possibly redundant if-clause
 	    		if(i != null) {
-	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue(), packageType);
+	    			// Search for start and end SmartPost objects, move this to Manager class later
+	    			/*for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
+	    				if(sp.getCity().equals(startCityList.getValue()) && sp.getAddress().equals(startSPList.getValue())) {
+	    					
+	    				}
+	    			}*/
+	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue(), p.getClass().getSimpleName());
 		    		p.printInfo();
 		    		Storage.getInstance().getPackages().add(p);
 		    		closeWindow(createButton);
 	    		}
 	    		
 	    	}
-	        //System.out.println(Storage.getInstance().getPackages());
-	        
 	    }
 	    
 	    @FXML public void cancelButtonClicked(ActionEvent event) {

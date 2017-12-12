@@ -7,7 +7,7 @@ public abstract class Package{
 	private Item pItem;
 	private String startPoint;
 	private String destination;
-	private String packageClass;
+	private String packageClass; // change this to int and then create const variable for subclasses 1 2 3?
 	
 	// Allow info to be written after creation regardless of subclass
 	public void setInfo(Item i, String start, String dest, String packageClass) {

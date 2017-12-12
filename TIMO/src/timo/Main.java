@@ -27,7 +27,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		// DBHandler.createNewDatabase("test.db");
 		launch(args);
 	}
 }

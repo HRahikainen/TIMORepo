@@ -65,7 +65,7 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		// route_length JavaScript function?
+		// routeLength JavaScript function?
 		// move parsing elsewhere, possibly straight from xml? And catch exceptions!
 		ArrayList<Float> coords = new ArrayList<Float>(); 
 		try {
@@ -110,6 +110,4 @@ public class MainViewController implements Initializable{
 	       }
 		}
     }
-
-	
 }

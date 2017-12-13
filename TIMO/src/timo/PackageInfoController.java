@@ -1,6 +1,8 @@
 package timo;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -25,8 +27,6 @@ public class PackageInfoController implements Initializable {
 	    @FXML private ComboBox<SmartPost> destSPList;
 	    @FXML private ComboBox<String> chooseItemList;
 	    @FXML private ComboBox<String> startCityList;
-	    private String destCity;
-	    private String startCity;
 	    
 
 	    @Override
@@ -50,7 +50,18 @@ public class PackageInfoController implements Initializable {
 	    @FXML public void createButtonClicked(ActionEvent event) {
 	    	Package p = null;
 	    	String packageType = null;
-	    	
+	    	ArrayList<Float> routeArray = new ArrayList<Float>();
+
+	    	try {
+				SmartPost sp1 = startSPList.valueProperty().getValue();
+				SmartPost sp2 = destSPList.valueProperty().getValue();
+				Collections.addAll(routeArray, Float.parseFloat(sp1.getGp().getLat()), Float.parseFloat(sp1.getGp().getLng()), Float.parseFloat(sp2.getGp().getLat()), Float.parseFloat(sp2.getGp().getLng()));
+				//double dist = (double) web.getEngine().executeScript("document.routeLength(" + routeArray + ")");
+				//System.out.println(dist);
+			}catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Luo ja valitse paketti ensin...");
+			}
 	    	if(radioBtn1.isSelected()) {
 	    		packageType = "1.luokka";
 	    	}else if(radioBtn2.isSelected()) {
@@ -89,7 +100,7 @@ public class PackageInfoController implements Initializable {
 	    @FXML public void startCityChosed(ActionEvent event){
 	    	// Parse cityName from startCityList and list city's SmartPosts
 	    	startSPList.getItems().clear();
-	    	startCity = startCityList.getValue();
+	    	String startCity = startCityList.getValue();
 	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(startCity)) {
 	    			startSPList.getItems().add(sp);
@@ -101,7 +112,7 @@ public class PackageInfoController implements Initializable {
 	    @FXML public void destCityChosed(ActionEvent event){
 	    	// Parse cityName from destCityList and list city's SmartPosts
 	    	destSPList.getItems().clear();
-	    	destCity = destCityList.getValue();
+	    	String destCity = destCityList.getValue();
 	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(destCity)) {
 	    			destSPList.getItems().add(sp);

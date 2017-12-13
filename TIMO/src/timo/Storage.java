@@ -15,7 +15,6 @@ public class Storage {
 		return instance;
 	}
 	
-	// This static too? 
 	public ArrayList<Package> getPackages(){
 		return packageList;
 	}

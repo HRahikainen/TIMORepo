@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +29,7 @@ public class MainViewController implements Initializable{
     @FXML private ListView<?> logListView;
     @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
-	@FXML private ComboBox<String> choosePackageStringList;
+	@FXML private ComboBox<Package> choosePackageList;
 	
 	private boolean infoWindowActive = false;
 	
@@ -38,7 +37,6 @@ public class MainViewController implements Initializable{
 	public void initialize(URL url, ResourceBundle rb) {
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
-		
 		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 			// Add each city only once
 			if(!chooseCityList.getItems().contains(sp.getCity())){
@@ -55,7 +53,6 @@ public class MainViewController implements Initializable{
 				String infoString = sp.getPostoffice() + " " + sp.getAvailability();
 				String color = "green";
 				String scriptString = "document.goToLocation(" + "'" + searchString + "'" + "," +  "'" + infoString + "'"  + "," + "'" + color +  "'" + ")";
-				System.out.println(scriptString);
 				wv.getEngine().executeScript(scriptString);
 				// Surprise, surprise, Hanko is missing
 			}
@@ -68,22 +65,26 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		// Something like this?
-		//ArrayList<Float> coords = new ArrayList<Float>();
-		//Package chosenPackage = Storage.getInstance().getPackages().get(something);
-		//SmartPost sp1 = SmartPostManager.srcPost(chosenPackage.getStart());
-		//SmartPost sp2 = SmartPostManager.srcPost(chosenPackage.getDest());
-		//Collections.addAll(coords, sp1.getGp().getLat(), sp1.getGp().getLon(), sp2.getGp().getLat(), sp2.getGp().getLon());
-		//double dist = (double) wv.getEngine().executeScript("document.createPath(coords, 'red', int packageClass)");
+		// route_length JavaScript function?
+		// move parsing elsewhere, possibly straight from xml? And catch exceptions!
+		ArrayList<Float> coords = new ArrayList<Float>(); 
+		try {
+			SmartPost sp1 = choosePackageList.valueProperty().getValue().getStartPoint();
+			SmartPost sp2 = choosePackageList.valueProperty().getValue().getDestination();
+			Collections.addAll(coords, Float.parseFloat(sp1.getGp().getLat()), Float.parseFloat(sp1.getGp().getLng()), Float.parseFloat(sp2.getGp().getLat()), Float.parseFloat(sp2.getGp().getLng()));
+			double dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
+			System.out.println(dist);
+		}catch (Exception e) {
+			System.out.println("Luo ja valitse paketti ensin...");
+		}
+		
+		
 	}
 	
 	@FXML void fillPackageBox() {
-		ArrayList<Package> packages = Storage.getInstance().getPackages();
-		for(Package p : packages) {
-			// Add each city only once
-			if(!choosePackageStringList.getItems().contains(p.getInfo())){
-				choosePackageStringList.getItems().add(p.getInfo());
-				System.out.println(p.getInfo());
+		for(Package p: Storage.getInstance().getPackages()) {
+			if(!choosePackageList.getItems().contains(p)){
+				choosePackageList.getItems().add(p);
 			}
 		}
 	}

@@ -3,12 +3,12 @@ AnchorPane {
 }
 
 .button {
+	-fx-text-fill: #ffffff;
 	-fx-background-radius:100%;
 	-fx-background-color: linear-gradient(#e6e6ff, #0000ff);
 }
 
 .button:hover {
-	-fx-text-fill: #ffffff;
 	-fx-font-weight: bold;
 }
 

@@ -5,6 +5,7 @@ public class FirstClassPackage extends Package {
 	public static double maxDistance = 150;
 	public static double maxWeight = 5; 
 	public static double maxSize = 10;
+	private int packageClass = 1;
 	
 	public FirstClassPackage() {
 		//System.out.println(this.getClass());

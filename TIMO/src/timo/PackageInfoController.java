@@ -21,8 +21,8 @@ public class PackageInfoController implements Initializable {
 	    @FXML private RadioButton radioBtn2;
 	    @FXML private RadioButton radioBtn3;
 	    @FXML private ComboBox<String> destCityList;
-	    @FXML private ComboBox<String> startSPList;
-	    @FXML private ComboBox<String> destSPList;
+	    @FXML private ComboBox<SmartPost> startSPList;
+	    @FXML private ComboBox<SmartPost> destSPList;
 	    @FXML private ComboBox<String> chooseItemList;
 	    @FXML private ComboBox<String> startCityList;
 	    private String destCity;
@@ -73,15 +73,9 @@ public class PackageInfoController implements Initializable {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		// Possibly redundant if-clause
 	    		if(i != null) {
-	    			// Search for start and end SmartPost objects, move this to Manager class later
-	    			/*for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
-	    				if(sp.getCity().equals(startCityList.getValue()) && sp.getAddress().equals(startSPList.getValue())) {
-	    					
-	    				}
-	    			}*/
-	    			p.setInfo(i, startCityList.getValue() +  " " + startSPList.getValue(), destCityList.getValue() +  " " + destSPList.getValue(), p.getClass().getSimpleName());
-		    		p.printInfo();
+	    			p.setInfo(i, startSPList.getValue(), destSPList.getValue(), p.getPackageClass());
 		    		Storage.getInstance().getPackages().add(p);
+		    		System.out.println("Paketti lisätty");
 		    		closeWindow(createButton);
 	    		}
 	    		
@@ -96,11 +90,9 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from startCityList and list city's SmartPosts
 	    	startSPList.getItems().clear();
 	    	startCity = startCityList.getValue();
-	    	System.out.println("Valitsit lähtökaupungiksi: " + startCity);
 	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(startCity)) {
-	    			System.out.println(sp.getAddress());
-	    			startSPList.getItems().add(sp.getAddress());
+	    			startSPList.getItems().add(sp);
 	    		}
 	    	}
 	    	
@@ -110,11 +102,9 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from destCityList and list city's SmartPosts
 	    	destSPList.getItems().clear();
 	    	destCity = destCityList.getValue();
-	    	System.out.println("Valitsit määränpääkaupungiksi: " + destCity);
 	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
 	    		if (sp.getCity().equals(destCity)) {
-	    			System.out.println(sp.getAddress());
-	    			destSPList.getItems().add(sp.getAddress());
+	    			destSPList.getItems().add(sp);
 	    		}
 	    	}
 	    }

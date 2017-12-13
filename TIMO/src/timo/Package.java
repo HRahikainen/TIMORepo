@@ -5,12 +5,12 @@ public abstract class Package{
 	private double weightLimit;
 	
 	private Item pItem;
-	private String startPoint;
-	private String destination;
-	private String packageClass; // change this to int and then create const variable for subclasses 1 2 3?
+	private SmartPost startPoint;
+	private SmartPost destination;
+	private int packageClass;
 	
 	// Allow info to be written after creation regardless of subclass
-	public void setInfo(Item i, String start, String dest, String packageClass) {
+	public void setInfo(Item i, SmartPost start, SmartPost dest, int packageClass) {
 		this.pItem = i;
 		this.startPoint = start;
 		this.destination = dest;
@@ -18,13 +18,36 @@ public abstract class Package{
 	}
 	
 	public String getInfo() {
-		return this.packageClass + " From: " + this.startPoint + " To: " + this.destination;
+		return this.getClass().getSimpleName() + " with " + this.pItem.getClass().getSimpleName() + " From: " + this.startPoint + " To: " + this.destination;
 	}
 	
-	// Debug method
-	public void printInfo() {
-		System.out.println(this.pItem.getClass());
-		System.out.println(this.startPoint);
-		System.out.println(this.destination);
+	@Override
+	public String toString() {
+		return this.getInfo();
 	}
+
+	public double getSizeLimit() {
+		return this.sizeLimit;
+	}
+
+	public double getWeightLimit() {
+		return this.weightLimit;
+	}
+
+	public Item getpItem() {
+		return this.pItem;
+	}
+
+	public SmartPost getStartPoint() {
+		return this.startPoint;
+	}
+
+	public SmartPost getDestination() {
+		return this.destination;
+	}
+
+	public int getPackageClass() {
+		return this.packageClass;
+	}
+	
 }

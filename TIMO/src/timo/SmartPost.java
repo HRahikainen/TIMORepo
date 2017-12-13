@@ -41,6 +41,11 @@ public class SmartPost {
 	public Geopoint getGp() {
 		return gp;
 	}
+	
+	@Override
+	public String toString() {
+		return this.city + " " + this.postoffice;
+	}
 
 	class Geopoint {
 		private String lat;
@@ -50,5 +55,14 @@ public class SmartPost {
 			this.lat = lat;
 			this.lng = lng;
 		}
+
+		public String getLat() {
+			return lat;
+		}
+
+		public String getLng() {
+			return lng;
+		}
+		
 	}
 }

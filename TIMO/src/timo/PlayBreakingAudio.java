@@ -13,14 +13,9 @@ public class PlayBreakingAudio {
 			File file = new File("src/timo/breaking.wav");
 			AudioInputStream ais = AudioSystem.getAudioInputStream(file);
 			System.out.println(ais.getFormat());
-		    Clip clip = AudioSystem.getClip(null);
+		    Clip clip = AudioSystem.getClip(null); // Must give null because Ubuntu?
 		    clip.open(ais);
 		    clip.start();
-		    while(clip.isRunning())
-		    {
-		       Thread.yield();
-		    }
-
 		}		
 		catch (Exception e) {
 			e.printStackTrace();

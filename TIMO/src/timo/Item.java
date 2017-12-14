@@ -1,23 +1,11 @@
 package timo;
 
 public abstract class Item {
-	private double mass;
-	private double size;
-	private boolean isFragile;
-	private boolean isBroken;
-	
-	public void setMass(double mass){
-		this.mass = mass;
-	}
-	
-	public void setSize(double size) {
-		this.size = size;
-	}
-	
-	public void setFragile(boolean isFragile) {
-		this.isFragile = isFragile;
-	}
-	
+	protected double mass;
+	protected double size;
+	protected boolean isFragile;
+	protected boolean isBroken;
+		
 	public double getMass() {
 		return this.mass;
 	}
@@ -38,6 +26,4 @@ public abstract class Item {
 		this.isBroken = true;
 	}
 
-	// X amount of extending non-generic objects
-	// Objects for example conscript who breaks every time the destination is either Lappi or Eastern Finland
 }

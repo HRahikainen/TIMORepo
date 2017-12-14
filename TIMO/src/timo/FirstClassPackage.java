@@ -1,13 +1,12 @@
 package timo;
 
 public class FirstClassPackage extends Package {
-	public static boolean willBreak = true;
-	public static double maxDistance = 150;
-	public static double maxWeight = 5; 
-	public static double maxSize = 10;
-	private int packageClass = 1;
+	private boolean willBreak = true;
 	
 	public FirstClassPackage() {
-		//System.out.println(this.getClass());
+		this.packageClass = 1;
+		this.sizeLimit = 10;
+		this.weightLimit = 10;
+		
 	}
 }

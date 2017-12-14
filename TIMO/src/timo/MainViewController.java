@@ -65,16 +65,24 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		// routeLength JavaScript function?
-		// move parsing elsewhere, possibly straight from xml? And catch exceptions!
+		// Move parsing elsewhere, possibly straight from xml? And catch exceptions!
+		// Get start and end points for currently chosen package and check distance and other Package-specific logic
 		ArrayList<Float> coords = new ArrayList<Float>(); 
 		try {
 			SmartPost sp1 = choosePackageList.valueProperty().getValue().getStartPoint();
 			SmartPost sp2 = choosePackageList.valueProperty().getValue().getDestination();
 			Collections.addAll(coords, Float.parseFloat(sp1.getGp().getLat()), Float.parseFloat(sp1.getGp().getLng()), Float.parseFloat(sp2.getGp().getLat()), Float.parseFloat(sp2.getGp().getLng()));
-			double dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
+			// A custom JavaScript function to only return the distance between start and destination, see index.html
+			double dist = (double) wv.getEngine().executeScript("document.routeLength(" +  coords + ")");
+			// Check if FirstClassPackage is being sent too far
+			if((dist > 150) && (choosePackageList.valueProperty().getValue().getPackageClass() == 1)) {
+				System.out.println("Ensimmäisen luokan paketti ei voi kulkea yli 150 km matkaa...");
+			}else {
+				dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
+			}
 			System.out.println(dist);
 		}catch (Exception e) {
+			// This printed to some error label under the send button?
 			System.out.println("Luo ja valitse paketti ensin...");
 		}
 		

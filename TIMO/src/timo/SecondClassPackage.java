@@ -1,8 +1,10 @@
 package timo;
 
 public class SecondClassPackage extends Package {
-	private int packageClass = 2;
+	
 	public SecondClassPackage() {
-		//System.out.println(this.getClass());
+		this.packageClass = 2;
+		this.sizeLimit = 5;
+		this.weightLimit = 3.5;
 	}
 }

@@ -1,8 +1,10 @@
 package timo;
 
 public class ThirdClassPackage extends Package {
-	private int packageClass = 3;
+
 	public ThirdClassPackage() {
-		//System.out.println(this.getClass());
+		this.packageClass = 3;
+		this.sizeLimit = 15;
+		this.weightLimit = 15;
 	}
 }

@@ -1,13 +1,13 @@
 package timo;
 
 public abstract class Package{
-	private double sizeLimit;
-	private double weightLimit;
+	protected double sizeLimit;
+	protected double weightLimit;
 	
-	private Item pItem;
-	private SmartPost startPoint;
-	private SmartPost destination;
-	private int packageClass;
+	protected Item pItem;
+	protected SmartPost startPoint;
+	protected SmartPost destination;
+	protected int packageClass;
 	
 	// Allow info to be written after creation regardless of subclass
 	public void setInfo(Item i, SmartPost start, SmartPost dest, int packageClass) {

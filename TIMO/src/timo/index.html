@@ -97,14 +97,14 @@
     for(var i=0; i<polyMarkerArray.length;i++) {
       polyMarkerArray[i].setMap(null);
     }
+} 
     /***ADDED BY HARZA***/
   document.routeLength = function(pathArray){
   	var startSP = new google.maps.LatLng(pathArray[0], pathArray[1]);
     var destSP = new google.maps.LatLng(pathArray[2], pathArray[3]);
   	return Math.round(google.maps.geometry.spherical.computeLength([startSP, destSP])/1000 * 100) / 100;
-  };
+  }
   /***END OF ADD***/
-} 
 </script>
 </head>
 <body onload="initialize()">

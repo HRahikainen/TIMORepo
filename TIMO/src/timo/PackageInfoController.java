@@ -1,8 +1,6 @@
 package timo;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -50,18 +48,7 @@ public class PackageInfoController implements Initializable {
 	    @FXML public void createButtonClicked(ActionEvent event) {
 	    	Package p = null;
 	    	String packageType = null;
-	    	ArrayList<Float> routeArray = new ArrayList<Float>();
-
-	    	try {
-				SmartPost sp1 = startSPList.valueProperty().getValue();
-				SmartPost sp2 = destSPList.valueProperty().getValue();
-				Collections.addAll(routeArray, Float.parseFloat(sp1.getGp().getLat()), Float.parseFloat(sp1.getGp().getLng()), Float.parseFloat(sp2.getGp().getLat()), Float.parseFloat(sp2.getGp().getLng()));
-				//double dist = (double) web.getEngine().executeScript("document.routeLength(" + routeArray + ")");
-				//System.out.println(dist);
-			}catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("Luo ja valitse paketti ensin...");
-			}
+	    	
 	    	if(radioBtn1.isSelected()) {
 	    		packageType = "1.luokka";
 	    	}else if(radioBtn2.isSelected()) {
@@ -82,14 +69,11 @@ public class PackageInfoController implements Initializable {
 	    
 	    	if( p != null) {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
-	    		// Possibly redundant if-clause
 	    		if(i != null) {
 	    			p.setInfo(i, startSPList.getValue(), destSPList.getValue(), p.getPackageClass());
 		    		Storage.getInstance().getPackages().add(p);
-		    		System.out.println("Paketti lisätty");
 		    		closeWindow(createButton);
 	    		}
-	    		
 	    	}
 	    }
 	    

@@ -46,6 +46,7 @@ public class PackageInfoController implements Initializable {
 	    }
 	    
 	    @FXML public void createButtonClicked(ActionEvent event) {
+	    	// Check if all package info is filled and create package and item accordingly
 	    	Package p = null;
 	    	String packageType = null;
 	    	
@@ -71,8 +72,16 @@ public class PackageInfoController implements Initializable {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		if(i != null) {
 	    			p.setInfo(i, startSPList.getValue(), destSPList.getValue(), p.getPackageClass());
-		    		Storage.getInstance().getPackages().add(p);
-		    		closeWindow(createButton);
+	    			if((p.getpItem().getMass() <= p.getWeightLimit()) && (p.getpItem().getSize() <= p.getSizeLimit())) {
+	    				Storage.getInstance().getPackages().add(p);
+	    				// Add package created to log here
+			    		closeWindow(createButton);
+	    			} else {
+	    				errorLabel.setText("Esineen mitat ovat liian suuret tähän pakettiin.");
+	    				errorLabel.setVisible(true);
+	    			}
+		    		
+		    		
 	    		}
 	    	}
 	    }

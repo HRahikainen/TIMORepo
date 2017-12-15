@@ -49,16 +49,22 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML void addMapMarkers(ActionEvent event) {
-		String city = chooseCityList.getValue();
-		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
-			if(city.equals(sp.getCity())) {
-				String searchString = sp.getAddress() + "," + sp.getCode() + " " + city;
-				String infoString = sp.getPostoffice() + " " + sp.getAvailability();
-				String color = "green";
-				String scriptString = "document.goToLocation(" + "'" + searchString + "'" + "," +  "'" + infoString + "'"  + "," + "'" + color +  "'" + ")";
-				wv.getEngine().executeScript(scriptString);
-				// Surprise, surprise, Hanko is missing
+		packageErrorLabel.setVisible(false);
+		try {
+			String city = chooseCityList.getValue();
+			for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
+				if(city.equals(sp.getCity())) {
+					String searchString = sp.getAddress() + "," + sp.getCode() + " " + city;
+					String infoString = sp.getPostoffice() + " " + sp.getAvailability();
+					String color = "green";
+					String scriptString = "document.goToLocation(" + "'" + searchString + "'" + "," +  "'" + infoString + "'"  + "," + "'" + color +  "'" + ")";
+					wv.getEngine().executeScript(scriptString);
+					// Surprise, surprise, Hanko is missing
+				}
 			}
+		} catch(NullPointerException e) {
+			packageErrorLabel.setText("Valitse ensin paikkakunta listasta!");
+			packageErrorLabel.setVisible(true);
 		}
 	}
 	
@@ -105,6 +111,7 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML void fillPackageBox() {
+		// Check to see if Storage has new packages when the infoWindow is closed.
 		for(Package p: Storage.getInstance().getPackages()) {
 			if(!choosePackageList.getItems().contains(p)){
 				choosePackageList.getItems().add(p);

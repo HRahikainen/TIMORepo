@@ -42,6 +42,7 @@ public class MainViewController implements Initializable{
 									+  Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
+		logListView.getItems().addAll(LogHandler.readLog());
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
 		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {

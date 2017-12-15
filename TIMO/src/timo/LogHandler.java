@@ -5,41 +5,40 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LogHandler {
-	public String readLog(String filepath) {
-		String output = "";
-		
+	private static final String filepath = "./postActionLog.txt";
+	public static ArrayList<String> readLog() {
+		ArrayList<String> logList = new ArrayList<String>();
 		try {
 			BufferedReader in; 
 			String inputLine;
 			
 			in = new BufferedReader(new FileReader(filepath));
 			while((inputLine = in.readLine()) != null) {
-    			output += inputLine + "\n";
+    			logList.add(inputLine);
 			}
 			in.close();
 			
 		} catch (IOException ioe) {
-			System.out.println("File not found!");
+			System.out.println("File not found! Starting from scratch..");
 		}
-		return output;
+		return logList;
 		
 	}
-	public void writeLog(String outFile) {
+	public static void writeLog(ArrayList<String> logList) {
 		
 		try {
-				
     			BufferedWriter out;
-    			out = new BufferedWriter(new FileWriter(outFile));
+    			out = new BufferedWriter(new FileWriter(filepath));
     			// Write log tab contents here
-    			/*while(() {
-    				out.write(inputLine);
-            		out.newLine();
-    			}*/
+    			for(String s : logList) {
+    				out.write(s);
+    			}
     			out.close();
 		} catch (IOException ex) {
-    			System.out.println("File not found!");
+    			System.out.println("Error while writing log...");
 		}
 	}
 }

@@ -36,7 +36,7 @@ public class PackageInfoController implements Initializable {
 	    	chooseItemList.getItems().add("Glasses");
 	    	errorLabel.setVisible(false);
 	    	
-	    	for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
+	    	for(SmartPost sp : SmartPostManager.getInstance().getMarkedPosts()) {
 				// Add each city only once
 				if(!destCityList.getItems().contains(sp.getCity())){
 					destCityList.getItems().add(sp.getCity());
@@ -73,7 +73,7 @@ public class PackageInfoController implements Initializable {
 	    		if(i != null) {
 	    			p.setInfo(i, startSPList.getValue(), destSPList.getValue(), p.getPackageClass());
 	    			if((p.getpItem().getMass() <= p.getWeightLimit()) && (p.getpItem().getSize() <= p.getSizeLimit())) {
-	    				Storage.getInstance().getPackages().add(p);
+	    				Storage.getInstance().add(p);
 	    				// Add package created to log here
 			    		closeWindow(createButton);
 	    			} else {
@@ -94,7 +94,7 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from startCityList and list city's SmartPosts
 	    	startSPList.getItems().clear();
 	    	String startCity = startCityList.getValue();
-	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
+	    	for (SmartPost sp : SmartPostManager.getInstance().getMarkedPosts()) {
 	    		if (sp.getCity().equals(startCity)) {
 	    			startSPList.getItems().add(sp);
 	    		}
@@ -106,7 +106,7 @@ public class PackageInfoController implements Initializable {
 	    	// Parse cityName from destCityList and list city's SmartPosts
 	    	destSPList.getItems().clear();
 	    	String destCity = destCityList.getValue();
-	    	for (SmartPost sp : SmartPostManager.getInstance().getPosts()) {
+	    	for (SmartPost sp : SmartPostManager.getInstance().getMarkedPosts()) {
 	    		if (sp.getCity().equals(destCity)) {
 	    			destSPList.getItems().add(sp);
 	    		}

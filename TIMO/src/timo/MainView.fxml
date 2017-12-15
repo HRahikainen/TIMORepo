@@ -97,7 +97,7 @@
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ListView fx:id="logListView" layoutX="200.0" layoutY="24.0" prefHeight="767.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label fx:id="packageCountLabel" layoutX="620.0" layoutY="746.0" prefHeight="15.0" prefWidth="166.0" text="Package Count:" />
+                        <Label fx:id="packageCountLabel" layoutX="449.0" layoutY="746.0" prefHeight="15.0" prefWidth="337.0" text="Packages through system:   Packages in store:" />
                      </children></AnchorPane>
             </content>
           </Tab>

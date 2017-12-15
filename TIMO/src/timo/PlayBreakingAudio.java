@@ -12,12 +12,12 @@ public class PlayBreakingAudio {
 		try {
 			File file = new File("src/timo/breaking.wav");
 			AudioInputStream ais = AudioSystem.getAudioInputStream(file);
-		    Clip clip = AudioSystem.getClip(null); // Must give null because Ubuntu?
+		    clip = AudioSystem.getClip(null); // Must give null because Ubuntu?
 		    clip.open(ais);
 		    clip.start();
 		}		
 		catch (Exception e) {
 			e.printStackTrace();
-			}
+		}
 	}
 }

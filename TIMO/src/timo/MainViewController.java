@@ -38,7 +38,9 @@ public class MainViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		logTab.setOnSelectionChanged(e -> packageCountLabel.setText("Package Count: " + Storage.getInstance().getPackages().size()));
+		logTab.setOnSelectionChanged(e -> packageCountLabel.setText("Packages through system: "
+									+  Storage.getInstance().getCount() +  " Packages in store: " 
+									+ Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
@@ -52,6 +54,7 @@ public class MainViewController implements Initializable{
 	
 	@FXML void addMapMarkers(ActionEvent event) {
 		packageErrorLabel.setVisible(false);
+		ArrayList<SmartPost> tmpList = new ArrayList<SmartPost>();
 		try {
 			String city = chooseCityList.getValue();
 			for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
@@ -61,13 +64,21 @@ public class MainViewController implements Initializable{
 					String color = "green";
 					String scriptString = "document.goToLocation(" + "'" + searchString + "'" + "," +  "'" + infoString + "'"  + "," + "'" + color +  "'" + ")";
 					wv.getEngine().executeScript(scriptString);
-					// Surprise, surprise, Hanko is missing
+					tmpList.add(sp);
 				}
+					// Surprise, surprise, Hanko is missing
 			}
 		} catch(NullPointerException e) {
 			packageErrorLabel.setText("Choose a city from the list first!");
 			packageErrorLabel.setVisible(true);
 		}
+		// Add marked posts to list if not in there, check is to avoid button spam problems
+		for(SmartPost sp : tmpList) {
+			if(!SmartPostManager.getInstance().getMarkedPosts().contains(sp)) {
+				SmartPostManager.getInstance().getMarkedPosts().add(sp);
+			}
+		}
+		tmpList.clear();
 	}
 	
 	@FXML void deletePaths(ActionEvent event) {
@@ -110,8 +121,9 @@ public class MainViewController implements Initializable{
 			packageErrorLabel.setVisible(true);
 			logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because start and destination are the same.");
 		}
-		
-		
+		// Remove from list unless already empty
+		Storage.getInstance().getPackages().remove(choosePackageList.valueProperty().getValue());
+		choosePackageList.getItems().remove(choosePackageList.valueProperty().getValue());
 	}
 	
 	@FXML void fillPackageBox() {

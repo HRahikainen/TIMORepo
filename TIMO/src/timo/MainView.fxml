@@ -76,6 +76,12 @@
                                           <ComboBox fx:id="choosePackageList" prefHeight="25.0" prefWidth="178.0" promptText="Valitse paketti" />
                                           <Separator prefHeight="10.0" prefWidth="400.0" visible="false" />
                                           <Button fx:id="sendPackageBtn" mnemonicParsing="false" onAction="#sendPackage" text="Lähetä paketti" />
+                                          <Separator prefHeight="31.0" prefWidth="400.0" visible="false" />
+                                          <Label fx:id="packageErrorLabel" prefHeight="59.0" prefWidth="398.0" text="Valitse tai luo ensin paketti!" textFill="#ee0606" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Label>
                                        </children>
                                     </VBox>
                                  </children>

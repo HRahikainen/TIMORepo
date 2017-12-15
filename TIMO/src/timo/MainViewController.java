@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 
@@ -26,7 +27,8 @@ public class MainViewController implements Initializable{
     @FXML private Button sendPackageBtn;
     @FXML private Tab logTab;
     @FXML private Button clearMapBtn;
-    @FXML private ListView<?> logListView;
+    @FXML private Label packageErrorLabel;
+    @FXML private ListView<String> logListView;
     @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
 	@FXML private ComboBox<Package> choosePackageList;
@@ -35,6 +37,7 @@ public class MainViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		packageErrorLabel.setVisible(false);
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
 		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
@@ -67,6 +70,7 @@ public class MainViewController implements Initializable{
 	@FXML void sendPackage(ActionEvent event) {
 		// Move parsing elsewhere, possibly straight from xml? And catch exceptions!
 		// Get start and end points for currently chosen package and check distance and other Package-specific logic
+		packageErrorLabel.setVisible(false);
 		ArrayList<Float> coords = new ArrayList<Float>(); 
 		try {
 			SmartPost sp1 = choosePackageList.valueProperty().getValue().getStartPoint();
@@ -76,14 +80,25 @@ public class MainViewController implements Initializable{
 			double dist = (double) wv.getEngine().executeScript("document.routeLength(" +  coords + ")");
 			// Check if FirstClassPackage is being sent too far
 			if((dist > 150) && (choosePackageList.valueProperty().getValue().getPackageClass() == 1)) {
-				System.out.println("Ensimm�isen luokan paketti ei voi kulkea yli 150 km matkaa...");
+				packageErrorLabel.setText("Ensimmäisen luokan paketti ei voi kulkea yli 150 km matkaa");
+				packageErrorLabel.setVisible(true);
+				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because FirstClassPackages can't go beyond 150 km.");
 			}else {
 				dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
+				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was delivered. " 
+						+ choosePackageList.valueProperty().getValue().getpItem().getClass().getSimpleName() 
+						+  (choosePackageList.valueProperty().getValue().getpItem().getBroken() ? " was broken in delivery" : " was delivered safely"));
 			}
 			System.out.println(dist);
-		}catch (Exception e) {
-			// This printed to some error label under the send button?
-			System.out.println("Luo ja valitse paketti ensin...");
+			
+		}catch (NullPointerException e) {
+			packageErrorLabel.setText("Valitse tai luo ensin paketti!");
+			packageErrorLabel.setVisible(true);
+		}catch (ClassCastException e) {
+			// Integer to Double error when start == end
+			packageErrorLabel.setText("Lähtö- ja päätepiste sama. Ei lähetetä.");
+			packageErrorLabel.setVisible(true);
+			logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because start and destination are the same.");
 		}
 		
 		

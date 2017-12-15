@@ -16,3 +16,12 @@ AnchorPane {
 	-fx-background-color: rgb(255,186,38);
 	-fx-font-weight: bold;
 }
+
+.list-view .list-cell:even {
+	-fx-background-color: rgb(255,186,38);
+	-fx-text-fill: black;
+}
+.list-view .list-cell:odd {
+	-fx-background-color: rgb(255,186,38);
+	-fx-text-fill: black;
+}

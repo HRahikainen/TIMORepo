@@ -25,7 +25,7 @@
    <children>
       <TabPane layoutX="153.0" layoutY="105.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="800.0" minWidth="800.0" prefHeight="800.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab fx:id="mapTab" text="Kartta">
+          <Tab fx:id="mapTab" text="Map">
                <content>
                   <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="767.0" prefWidth="800.0" visible="true">
                     <columnConstraints>
@@ -48,36 +48,36 @@
                            <children>
                               <VBox prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label text="Lisää SmartPost-automaatit kartalle:">
+                                    <Label text="Add SmartPosts on the map:">
                                        <font>
                                           <Font size="20.0" />
                                        </font>
                                     </Label>
                                     <Separator prefHeight="12.0" prefWidth="400.0" visible="false" />
-                                    <ComboBox fx:id="chooseCityList" prefHeight="25.0" prefWidth="366.0" promptText="Valitse kaupunki" />
+                                    <ComboBox fx:id="chooseCityList" prefHeight="25.0" prefWidth="366.0" promptText="Choose City" />
                                     <Separator prefHeight="11.0" prefWidth="400.0" visible="false" />
-                                    <Button fx:id="addSPBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addMapMarkers" text="Lisää kartalle" />
+                                    <Button fx:id="addSPBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addMapMarkers" text="Add Marker" />
                                     <Separator prefHeight="99.0" prefWidth="400.0" visible="false" />
-                                    <Button fx:id="clearMapBtn" mnemonicParsing="false" onAction="#deletePaths" text="Tyhjennä reitit kartalta" />
+                                    <Button fx:id="clearMapBtn" mnemonicParsing="false" onAction="#deletePaths" text="Erase all paths" />
                                  </children>
                               </VBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                  <children>
                                     <VBox prefHeight="224.0" prefWidth="406.0">
                                        <children>
-                                          <Label text="Pakettien hallinta">
+                                          <Label text="Package Management">
                                              <font>
                                                 <Font size="20.0" />
                                              </font>
                                           </Label>
                                           <Separator prefHeight="12.0" prefWidth="400.0" visible="false" />
-                                          <Button fx:id="newPackageBtn" mnemonicParsing="false" onAction="#packageInfoWindow" text="Uusi paketti" />
+                                          <Button fx:id="newPackageBtn" mnemonicParsing="false" onAction="#packageInfoWindow" text="New Package" />
                                           <Separator prefHeight="11.0" prefWidth="400.0" visible="false" />
-                                          <ComboBox fx:id="choosePackageList" prefHeight="25.0" prefWidth="178.0" promptText="Valitse paketti" />
+                                          <ComboBox fx:id="choosePackageList" prefHeight="25.0" prefWidth="178.0" promptText="Choose Package" />
                                           <Separator prefHeight="10.0" prefWidth="400.0" visible="false" />
-                                          <Button fx:id="sendPackageBtn" mnemonicParsing="false" onAction="#sendPackage" text="Lähetä paketti" />
+                                          <Button fx:id="sendPackageBtn" mnemonicParsing="false" onAction="#sendPackage" text="Send Package" />
                                           <Separator prefHeight="31.0" prefWidth="400.0" visible="false" />
-                                          <Label fx:id="packageErrorLabel" prefHeight="59.0" prefWidth="398.0" text="Valitse tai luo ensin paketti!" textFill="#ee0606" wrapText="true">
+                                          <Label fx:id="packageErrorLabel" prefHeight="59.0" prefWidth="398.0" text="Choose or create a package first!" textFill="#ee0606" wrapText="true">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
@@ -92,11 +92,12 @@
                   </GridPane>
                </content>
           </Tab>
-          <Tab fx:id="logTab" text="Loki">
+          <Tab fx:id="logTab" text="Log">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ListView fx:id="logListView" layoutX="200.0" layoutY="24.0" prefHeight="767.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label fx:id="packageCountLabel" layoutX="620.0" layoutY="746.0" prefHeight="15.0" prefWidth="166.0" text="Package Count:" />
                      </children></AnchorPane>
             </content>
           </Tab>

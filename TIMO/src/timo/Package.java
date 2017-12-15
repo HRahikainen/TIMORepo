@@ -1,6 +1,8 @@
 package timo;
 
-public abstract class Package{
+import java.io.Serializable;
+
+public abstract class Package implements Serializable{
 	protected double sizeLimit;
 	protected double weightLimit;
 	
@@ -18,7 +20,7 @@ public abstract class Package{
 	}
 	
 	public String getInfo() {
-		return this.getClass().getSimpleName() + " with " + this.pItem.getClass().getSimpleName() + " From: " + this.startPoint + " To: " + this.destination;
+		return this.getClass().getSimpleName() + " with " + this.pItem.getClass().getSimpleName() + "\nFrom: " + this.startPoint + "\nTo: " + this.destination;
 	}
 	
 	@Override

@@ -29,6 +29,7 @@ public class MainViewController implements Initializable{
     @FXML private Button clearMapBtn;
     @FXML private Label packageErrorLabel;
     @FXML private ListView<String> logListView;
+    @FXML private Label packageCountLabel;
     @FXML private ComboBox<String> chooseCityList;
 	@FXML private WebView wv;
 	@FXML private ComboBox<Package> choosePackageList;
@@ -37,6 +38,7 @@ public class MainViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		logTab.setOnSelectionChanged(e -> packageCountLabel.setText("Package Count: " + Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
@@ -63,7 +65,7 @@ public class MainViewController implements Initializable{
 				}
 			}
 		} catch(NullPointerException e) {
-			packageErrorLabel.setText("Valitse ensin paikkakunta listasta!");
+			packageErrorLabel.setText("Choose a city from the list first!");
 			packageErrorLabel.setVisible(true);
 		}
 	}
@@ -86,23 +88,25 @@ public class MainViewController implements Initializable{
 			double dist = (double) wv.getEngine().executeScript("document.routeLength(" +  coords + ")");
 			// Check if FirstClassPackage is being sent too far
 			if((dist > 150) && (choosePackageList.valueProperty().getValue().getPackageClass() == 1)) {
-				packageErrorLabel.setText("Ensimmäisen luokan paketti ei voi kulkea yli 150 km matkaa");
+				packageErrorLabel.setText("First class package can't travel over 150km");
 				packageErrorLabel.setVisible(true);
 				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because FirstClassPackages can't go beyond 150 km.");
 			}else {
 				dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
-				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was delivered. " 
+				// Private method where fragility is checked
+				determineBreak(choosePackageList.valueProperty().getValue());
+				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was delivered.\n" 
 						+ choosePackageList.valueProperty().getValue().getpItem().getClass().getSimpleName() 
-						+  (choosePackageList.valueProperty().getValue().getpItem().getBroken() ? " was broken in delivery" : " was delivered safely"));
+						+  (choosePackageList.valueProperty().getValue().getpItem().getBroken() ? " was broken in delivery" : " was delivered safely") 
+						+ "\nDistance travelled: " + dist + "km");
 			}
-			System.out.println(dist);
 			
 		}catch (NullPointerException e) {
-			packageErrorLabel.setText("Valitse tai luo ensin paketti!");
+			packageErrorLabel.setText("Choose or create a package first!");
 			packageErrorLabel.setVisible(true);
 		}catch (ClassCastException e) {
 			// Integer to Double error when start == end
-			packageErrorLabel.setText("Lähtö- ja päätepiste sama. Ei lähetetä.");
+			packageErrorLabel.setText("Starting point and destination are the same. Package not sent.");
 			packageErrorLabel.setVisible(true);
 			logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because start and destination are the same.");
 		}
@@ -129,7 +133,7 @@ public class MainViewController implements Initializable{
 	            Scene packageInfoScene = new Scene(page);
 	            packageInfoStage.setScene(packageInfoScene);
 	            packageInfoScene.getStylesheets().add(getClass().getResource("info.css").toExternalForm());
-	            packageInfoStage.setTitle("Pakettitiedot");
+	            packageInfoStage.setTitle("Package Information");
 	            packageInfoStage.setMinHeight(600);
 	            packageInfoStage.setMinWidth(600);
 	            packageInfoStage.setOnHidden(e -> {fillPackageBox(); infoWindowActive = false;}); // See when to update list
@@ -140,4 +144,18 @@ public class MainViewController implements Initializable{
 	       }
 		}
     }
+	
+	private void determineBreak(Package p) {
+		if((p.getPackageClass() == 1) && (p.getpItem().getFragile())) {
+			p.getpItem().breakItem();
+		}else if((p.getPackageClass() == 3) && (p.getpItem().getFragile()) && ((p.getpItem().getMass() <= (0.5 * p.getWeightLimit())) && (p.getpItem().getSize() <= (0.5 * p.getSizeLimit())))) {
+			p.getpItem().breakItem();
+		}
+		
+		if(p.getpItem().getClass().getSimpleName().equals("SamsungGalaxyNoteSeven")) {
+			// Always breaks and burns
+			p.getpItem().breakItem();
+			PlayBreakingAudio.play();
+		}
+	}
 }

@@ -19,13 +19,13 @@ public class PackageFactory {
 		if(packageType == null) {
 			return null;
 		}
-		if(packageType.equalsIgnoreCase("1.luokka")){
+		if(packageType.equalsIgnoreCase("1st class")){
 			return new FirstClassPackage();
 
-		} else if(packageType.equalsIgnoreCase("2.luokka")){
+		} else if(packageType.equalsIgnoreCase("2nd class")){
 			return new SecondClassPackage();
 
-		} else if(packageType.equalsIgnoreCase("3.luokka")){
+		} else if(packageType.equalsIgnoreCase("3rd class")){
 			return new ThirdClassPackage();
 		}
 

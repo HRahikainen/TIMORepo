@@ -51,11 +51,11 @@ public class PackageInfoController implements Initializable {
 	    	String packageType = null;
 	    	
 	    	if(radioBtn1.isSelected()) {
-	    		packageType = "1.luokka";
+	    		packageType = "1st class";
 	    	}else if(radioBtn2.isSelected()) {
-	    		packageType = "2.luokka";
+	    		packageType = "2nd class";
 	    	}else if(radioBtn3.isSelected()) {
-	    		packageType = "3.luokka";
+	    		packageType = "3rd class";
 	    	}
 	    	
 	    	try {
@@ -77,7 +77,7 @@ public class PackageInfoController implements Initializable {
 	    				// Add package created to log here
 			    		closeWindow(createButton);
 	    			} else {
-	    				errorLabel.setText("Esineen mitat ovat liian suuret tähän pakettiin.");
+	    				errorLabel.setText("Item's dimensions are too big for this package.");
 	    				errorLabel.setVisible(true);
 	    			}
 		    		

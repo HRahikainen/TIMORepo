@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 public class MainViewController implements Initializable{
 
@@ -35,6 +36,11 @@ public class MainViewController implements Initializable{
 	@FXML private WebView wv;
 	@FXML private ComboBox<Package> choosePackageList;
 	
+	@FXML private Button freshBtn;
+	@FXML private Button recoveryBtn;
+	@FXML private Tab recoveryTab;
+	@FXML private TabPane tabPane;
+	
 	private boolean infoWindowActive = false;
 	
 	@Override
@@ -46,9 +52,6 @@ public class MainViewController implements Initializable{
 		packageErrorLabel.setVisible(false);
 		// Read past logs and packages into session
 		logListView.getItems().addAll(LogHandler.readLogStrings());
-		LogHandler.readPackages();
-		Storage.getInstance().setCount();
-		fillPackageBox();
 		// Load WebView and parse XML
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
@@ -59,6 +62,28 @@ public class MainViewController implements Initializable{
 			}
 		}
 	}
+	
+	@FXML void recoverStorage(ActionEvent event) {
+		// Restores last storage packages
+		mapTab.setDisable(false);
+		logTab.setDisable(false);
+		tabPane.getSelectionModel().selectNext();
+		
+		LogHandler.readPackages();
+		Storage.getInstance().setCount();
+		fillPackageBox();
+		recoveryTab.setDisable(true);
+	}
+	@FXML void startFresh(ActionEvent event) {
+		// starts program without any packages
+		mapTab.setDisable(false);
+		logTab.setDisable(false);
+		tabPane.getSelectionModel().selectNext();
+		recoveryTab.setDisable(true);
+
+	}
+	
+	
 	
 	@FXML void addMapMarkers(ActionEvent event) {
 		// Add markers via JavaScript method.

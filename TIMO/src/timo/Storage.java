@@ -3,6 +3,9 @@ package timo;
 import java.util.ArrayList;
 
 public class Storage {
+	/**
+	 * Stores all created packages and keeps track of their count
+	 */
 	private static Storage instance = null;
 	private static int packageCount = 0;
 	private ArrayList<Package> packageList = null;
@@ -30,6 +33,7 @@ public class Storage {
 	}
 	
 	public void setCount() {
+		// When storage is loaded from file, restore last count.
 		packageCount = packageList.size();
 	}
 }

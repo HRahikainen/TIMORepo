@@ -3,6 +3,10 @@ package timo;
 import java.io.Serializable;
 
 public abstract class Item implements Serializable{
+	/**
+	 * Items come in different sizes (volume) and masses.
+	 * Fragile items get broken.
+	 * */
 	protected double mass;
 	protected double size;
 	protected boolean isFragile;

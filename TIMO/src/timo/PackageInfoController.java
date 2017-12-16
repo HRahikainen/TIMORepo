@@ -13,7 +13,9 @@ import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
 public class PackageInfoController implements Initializable {
-	    
+	    /**
+	     * Controller for package creation window
+	     * */
 		@FXML private Label errorLabel;
 	    @FXML private Button createButton;
 	    @FXML private Button cancelButton;
@@ -72,9 +74,9 @@ public class PackageInfoController implements Initializable {
 	    		Item i = ItemFactory.getInstance().newItem(chooseItemList.getValue());
 	    		if(i != null) {
 	    			p.setInfo(i, startSPList.getValue(), destSPList.getValue(), p.getPackageClass());
+	    			// Check if item fits the package limits
 	    			if((p.getpItem().getMass() <= p.getWeightLimit()) && (p.getpItem().getSize() <= p.getSizeLimit())) {
 	    				Storage.getInstance().add(p);
-	    				// Add package created to log here
 			    		closeWindow(createButton);
 	    			} else {
 	    				errorLabel.setText("Item's dimensions are too big for this package.");

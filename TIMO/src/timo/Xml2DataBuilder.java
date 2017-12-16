@@ -18,10 +18,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 public class Xml2DataBuilder {
-
+	/**
+	 * Static class for parsing SmartPost objects from XML
+	 */
 	private static Document doc;
 	
 	private static ArrayList<SmartPost> getPostData() {
+		// Assemble SmartPosts from document tree
 		ArrayList<SmartPost> spList = new ArrayList<SmartPost>();
         NodeList nodes = doc.getElementsByTagName("place");
         for(int i = 0; i < nodes.getLength(); i++) {
@@ -37,6 +40,7 @@ public class Xml2DataBuilder {
     }
 	
 	public static ArrayList<SmartPost> parsePostData() {
+		// Fetch, prepare and parse data for end use
 		ArrayList<SmartPost> spList = new ArrayList<SmartPost>();
 		try {
 			String dataString = fetchData();
@@ -48,6 +52,7 @@ public class Xml2DataBuilder {
         spList = getPostData();
         return spList;
 	}
+	
 	private static String fetchData() throws Exception {
         URL url = new URL("http://smartpost.ee/fi_apt.xml");
         return readURLToString(url); 

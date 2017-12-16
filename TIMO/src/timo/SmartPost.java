@@ -3,6 +3,9 @@ package timo;
 import java.io.Serializable;
 
 public class SmartPost implements Serializable {
+	/**
+	 * SmartPost info from XML, inner class for Geopoint data.
+	 * */
 	private String code;
 	private String city;
 	private String address;
@@ -21,27 +24,27 @@ public class SmartPost implements Serializable {
 	}
 
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
 	public String getAvailability() {
-		return availability;
+		return this.availability;
 	}
 
 	public String getPostoffice() {
-		return postoffice;
+		return this.postoffice;
 	}
 
 	public Geopoint getGp() {
-		return gp;
+		return this.gp;
 	}
 	
 	@Override
@@ -50,19 +53,25 @@ public class SmartPost implements Serializable {
 	}
 
 	class Geopoint implements Serializable {
-		private String lat;
-		private String lng;
+		private Float lat;
+		private Float lng;
 		
-		public Geopoint(String lat, String lng) {
-			this.lat = lat;
-			this.lng = lng;
+		public Geopoint(String latitude, String longitude) {
+			try {
+				Float lat = Float.parseFloat(latitude);
+				Float lng = Float.parseFloat(longitude);
+				this.lat = lat;
+				this.lng = lng;
+			} catch (NumberFormatException e) {
+				// We screwed dawg.
+			}
 		}
 
-		public String getLat() {
+		public Float getLat() {
 			return lat;
 		}
 
-		public String getLng() {
+		public Float getLng() {
 			return lng;
 		}
 		

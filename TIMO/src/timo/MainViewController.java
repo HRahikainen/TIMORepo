@@ -92,28 +92,28 @@ public class MainViewController implements Initializable{
     }
 	
 	@FXML void sendPackage(ActionEvent event) {
-		// Move parsing elsewhere, possibly straight from xml? And catch exceptions!
 		// Get start and end points for currently chosen package and check distance and other Package-specific logic
 		packageErrorLabel.setVisible(false);
 		ArrayList<Float> coords = new ArrayList<Float>(); 
 		try {
-			SmartPost sp1 = choosePackageList.valueProperty().getValue().getStartPoint();
-			SmartPost sp2 = choosePackageList.valueProperty().getValue().getDestination();
-			Collections.addAll(coords, Float.parseFloat(sp1.getGp().getLat()), Float.parseFloat(sp1.getGp().getLng()), Float.parseFloat(sp2.getGp().getLat()), Float.parseFloat(sp2.getGp().getLng()));
+			Package chosenPackage = choosePackageList.valueProperty().getValue();
+			SmartPost sp1 = chosenPackage.getStartPoint();
+			SmartPost sp2 = chosenPackage.getDestination();
+			Collections.addAll(coords, sp1.getGp().getLat(), sp1.getGp().getLng(), sp2.getGp().getLat(), sp2.getGp().getLng());
 			// A custom JavaScript function to only return the distance between start and destination, see index.html
 			double dist = (double) wv.getEngine().executeScript("document.routeLength(" +  coords + ")");
 			// Check if FirstClassPackage is being sent too far
-			if((dist > 150) && (choosePackageList.valueProperty().getValue().getPackageClass() == 1)) {
+			if((dist > 150) && (chosenPackage.getPackageClass() == 1)) {
 				packageErrorLabel.setText("First class package can't travel over 150km");
 				packageErrorLabel.setVisible(true);
-				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because FirstClassPackages can't go beyond 150 km.");
+				logListView.getItems().add(chosenPackage + " was not delivered because FirstClassPackages can't go beyond 150 km.");
 			}else {
-				dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + choosePackageList.valueProperty().getValue().getPackageClass()+ ")");
+				dist = (double) wv.getEngine().executeScript("document.createPath(" + coords + ", 'red'," + chosenPackage.getPackageClass()+ ")");
 				// Private method where fragility is checked
-				determineBreak(choosePackageList.valueProperty().getValue());
-				logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was delivered.\n" 
-						+ choosePackageList.valueProperty().getValue().getpItem().getClass().getSimpleName() 
-						+  (choosePackageList.valueProperty().getValue().getpItem().getBroken() ? " was broken in delivery" : " was delivered safely") 
+				determineBreak(chosenPackage);
+				logListView.getItems().add(chosenPackage + " was delivered.\n" 
+						+ chosenPackage.getpItem().getClass().getSimpleName() 
+						+  (chosenPackage.getpItem().getBroken() ? " was broken in delivery" : " was delivered safely") 
 						+ "\nDistance travelled: " + dist + "km");
 			}
 			
@@ -121,7 +121,7 @@ public class MainViewController implements Initializable{
 			packageErrorLabel.setText("Choose or create a package first!");
 			packageErrorLabel.setVisible(true);
 		}catch (ClassCastException e) {
-			// Integer to Double error when start == end
+			// Integer to Double error when start == end?
 			packageErrorLabel.setText("Starting point and destination are the same. Package not sent.");
 			packageErrorLabel.setVisible(true);
 			logListView.getItems().add(choosePackageList.valueProperty().getValue() + " was not delivered because start and destination are the same.");
@@ -163,6 +163,7 @@ public class MainViewController implements Initializable{
     }
 	
 	private void determineBreak(Package p) {
+		// First class and fragile always breaks, 3rd class and too small and fragile breaks
 		if((p.getPackageClass() == 1) && (p.getpItem().getFragile())) {
 			p.getpItem().breakItem();
 		}else if((p.getPackageClass() == 3) && (p.getpItem().getFragile()) && ((p.getpItem().getMass() <= (0.5 * p.getWeightLimit())) && (p.getpItem().getSize() <= (0.5 * p.getSizeLimit())))) {
@@ -170,20 +171,19 @@ public class MainViewController implements Initializable{
 		}
 		
 		if(p.getpItem().getClass().getSimpleName().equals("SamsungGalaxyNoteSeven")) {
-			// Always breaks and burns
+			// Always breaks and burns, makes a sound when burning
 			p.getpItem().breakItem();
 			PlayBreakingAudio.play();
 		}
 	}
 
 	public void logListEventHandler(){
+		// Called when program exits to write logs
 		logListView.getItems().add("Packages through system: "
 									+ Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size());
 		LogHandler.writeLog(logListView.getItems());
 		LogHandler.writeLogStrings(logListView.getItems());
 		LogHandler.writePackages(Storage.getInstance().getPackages());
-		
-		
 	}
 }

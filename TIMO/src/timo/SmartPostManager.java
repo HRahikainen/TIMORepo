@@ -3,6 +3,10 @@ package timo;
 import java.util.ArrayList;
 
 public class SmartPostManager {
+	/**
+	 * Keeps track of all available SmartPosts as well as SmartPosts that
+	 * have been placed on the map. Getters for accessing lists for iteration.
+	 * */
 	private static SmartPostManager instance = null;
 	private ArrayList<SmartPost> postList = null;
 	private ArrayList<SmartPost> markedPostList = null;

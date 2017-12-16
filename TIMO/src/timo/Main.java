@@ -13,8 +13,6 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
-			//FXMLLoader loader = FXMLLoader.load(getClass().getResource("MainView.fxml"));
-			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainView.fxml"));
 			AnchorPane root = loader.load();
 			MainViewController mvController = loader.getController();
 			Scene mainScene = new Scene(root);
@@ -23,7 +21,7 @@ public class Main extends Application {
 			primaryStage.setTitle("TIMO Package Manager");
 			primaryStage.setMinHeight(800);
 			primaryStage.setMinWidth(800);
-			primaryStage.setOnCloseRequest(e -> {mvController.logListEventHandler();Platform.exit();}); // Close application on main window close
+			primaryStage.setOnCloseRequest(e -> {mvController.logListEventHandler();Platform.exit();}); // Write logs and close application on main window close.
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -31,7 +29,6 @@ public class Main extends Application {
 	
 	}
 
-	
 	public static void main(String[] args) {
 		launch(args);
 	}

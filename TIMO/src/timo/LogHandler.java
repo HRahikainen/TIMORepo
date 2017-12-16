@@ -14,37 +14,14 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
 public class LogHandler {
+	/**
+	 * Handles both writing and reading user action logs.
+	 * Saves and restores the Packages in Storage.
+	 * */
 	private static final String filepath = "./postActionLog.txt";
-	public static ArrayList<String> readLog() {
-		ArrayList<String> logList = new ArrayList<String>();
-		try {
-			BufferedReader in; 
-			String inputLine;
-			String outputString = "";
-			
-			in = new BufferedReader(new FileReader(filepath));
-			int i = 0;
-			while((inputLine = in.readLine()) != null) {
-				if(i < 5) {
-					outputString += inputLine + "\n";
-				}
-				if(i++ == 5){
-					logList.add(outputString);
-					i = 0;
-					outputString = "";
-				}
-			}
-			logList.add(outputString);
-			in.close();
-			
-		} catch (IOException ioe) {
-			System.out.println("File not found! Starting from scratch..");
-		}
-		return logList;
-		
-	}
+	
 	public static void writeLog(ObservableList<String> observableList) {
-		
+		// Writes log as text to file
 		try {
     			BufferedWriter out;
     			out = new BufferedWriter(new FileWriter(filepath));
@@ -60,6 +37,7 @@ public class LogHandler {
 	
 	
 	public static void writePackages(ArrayList<Package> packageList) {
+		// Writes Package objects from Storage to file 
 		try{
 	         FileOutputStream fos= new FileOutputStream("PackageListFile");
 	         ObjectOutputStream oos= new ObjectOutputStream(fos);
@@ -68,11 +46,12 @@ public class LogHandler {
 	         fos.close();
 	       }catch(IOException ioe){
 	            ioe.printStackTrace();
-	        }
+	       }
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static void readPackages(){
+		// Reads Package objects from file to Storage 
 		 try
 	        {
 	            FileInputStream fis = new FileInputStream("PackageListFile");
@@ -82,17 +61,14 @@ public class LogHandler {
 	            fis.close();
 	         }catch(IOException ioe){
 	             ioe.printStackTrace();
-	          }catch(ClassNotFoundException c){
+	         }catch(ClassNotFoundException c){
 	             System.out.println("Class not found");
 	             c.printStackTrace();
-	          }
+	         }
 	}
 	
-	
-	
-	
-	
 	public static void writeLogStrings(ObservableList<String> observableList) {
+		// Writes individual log tab cell contents as String for ease of recovery
 		try{
 			ArrayList<String> tmpArrList = new ArrayList<String>();
 			for (String s : observableList) {
@@ -105,29 +81,26 @@ public class LogHandler {
 	         fos.close();
 	       }catch(IOException ioe){
 	            ioe.printStackTrace();
-	        }
-		catch (NullPointerException e) {
+	       }catch(NullPointerException e) {
 			e.printStackTrace();
-		}
+	       }
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static ArrayList<String> readLogStrings(){
 		ArrayList<String> tmpArrList = new ArrayList<String>();
-		//ObservableList<String> obs = null;
-		 try
-	        {
-	            FileInputStream fis = new FileInputStream("LogListFile");
-	            ObjectInputStream ois = new ObjectInputStream(fis);	 
-	            tmpArrList = (ArrayList<String>) ois.readObject();
-	            ois.close();
-	            fis.close();
-	         }catch(IOException ioe){
-	             //ioe.printStackTrace();
-	          }catch(ClassNotFoundException c){
+		 try{
+            FileInputStream fis = new FileInputStream("LogListFile");
+            ObjectInputStream ois = new ObjectInputStream(fis);	 
+            tmpArrList = (ArrayList<String>) ois.readObject();
+            ois.close();
+            fis.close();
+	        }catch(IOException ioe){
+	             ioe.printStackTrace();
+	        }catch(ClassNotFoundException c){
 	             System.out.println("Class not found");
 	             c.printStackTrace();
-	          }
+	        }
 		 return tmpArrList;
 	}
 	

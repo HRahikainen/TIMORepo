@@ -3,6 +3,10 @@ package timo;
 import java.io.Serializable;
 
 public abstract class Package implements Serializable{
+	/**
+	 * Packages to be stored and sent. Size and weight limitations.
+	 * Informational String representation.
+	 * */
 	protected double sizeLimit;
 	protected double weightLimit;
 	

@@ -1,6 +1,9 @@
 package timo;
 
 public class ItemFactory {
+	/**
+	 * Similar in functionality to PackageFactory counterpart
+	 * */
 	private static ItemFactory instance = null;
 	
     protected ItemFactory() {}

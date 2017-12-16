@@ -39,14 +39,17 @@ public class MainViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		// Initialize package count
 		logTab.setOnSelectionChanged(e -> packageCountLabel.setText("Packages through system: "
 									+  Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
+		// Read past logs and packages into session
 		logListView.getItems().addAll(LogHandler.readLogStrings());
 		LogHandler.readPackages();
 		Storage.getInstance().setCount();
 		fillPackageBox();
+		// Load WebView and parse XML
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
 		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
@@ -58,6 +61,7 @@ public class MainViewController implements Initializable{
 	}
 	
 	@FXML void addMapMarkers(ActionEvent event) {
+		// Add markers via JavaScript method.
 		packageErrorLabel.setVisible(false);
 		ArrayList<SmartPost> tmpList = new ArrayList<SmartPost>();
 		try {
@@ -71,7 +75,6 @@ public class MainViewController implements Initializable{
 					wv.getEngine().executeScript(scriptString);
 					tmpList.add(sp);
 				}
-					// Surprise, surprise, Hanko is missing
 			}
 		} catch(NullPointerException e) {
 			packageErrorLabel.setText("Choose a city from the list first!");
@@ -88,7 +91,6 @@ public class MainViewController implements Initializable{
 	
 	@FXML void deletePaths(ActionEvent event) {
 		wv.getEngine().executeScript("document.deletePaths()");
-		// Also remove calculated paths?
     }
 	
 	@FXML void sendPackage(ActionEvent event) {

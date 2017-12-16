@@ -6,8 +6,10 @@ AnchorPane {
 	-fx-text-fill: #ffffff;
 	-fx-background-radius:10%;
 	-fx-background-color: linear-gradient(#e6e6ff, #0000ff);
+	-fx-cursor: hand;
 }
 
 .button:hover {
 	-fx-font-weight: bold;
+	-fx-cursor: hand;
 }

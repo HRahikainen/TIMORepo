@@ -47,8 +47,11 @@ public class MainViewController implements Initializable{
 									+  Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
-		logListView.getItems().addAll(LogHandler.readLog());
+		//logListView.getItems().addAll(LogHandler.readLog());
+		logListView.getItems().addAll(LogHandler.readLogStrings());
 		LogHandler.readPackages();
+		Storage.getInstance().setCount();
+		fillPackageBox();
 		wv.getEngine().load(getClass().getResource("index.html").toExternalForm());
 		SmartPostManager.getInstance().setPosts(Xml2DataBuilder.parsePostData());
 		for(SmartPost sp : SmartPostManager.getInstance().getPosts()) {
@@ -182,7 +185,10 @@ public class MainViewController implements Initializable{
 		logListView.getItems().add("Packages through system: "
 									+ Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size());
-		LogHandler.writeLog(logListView.getItems());
+		//LogHandler.writeLog(logListView.getItems());
+		LogHandler.writeLogStrings(logListView.getItems());
 		LogHandler.writePackages(Storage.getInstance().getPackages());
+		
+		
 	}
 }

@@ -28,4 +28,8 @@ public class Storage {
 	public int getCount() {
 		return packageCount;
 	}
+	
+	public void setCount() {
+		packageCount = packageList.size();
+	}
 }

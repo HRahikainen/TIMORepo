@@ -58,6 +58,7 @@ public class LogHandler {
 		}
 	}
 	
+	
 	public static void writePackages(ArrayList<Package> packageList) {
 		try{
 	         FileOutputStream fos= new FileOutputStream("PackageListFile");
@@ -86,4 +87,56 @@ public class LogHandler {
 	             c.printStackTrace();
 	          }
 	}
+	
+	
+	
+	
+	
+	public static void writeLogStrings(ObservableList<String> observableList) {
+		try{
+			ArrayList<String> tmpArrList = new ArrayList<String>();
+			for (String s : observableList) {
+				tmpArrList.add(s);
+			}
+	         FileOutputStream fos= new FileOutputStream("LogListFile");
+	         ObjectOutputStream oos= new ObjectOutputStream(fos);
+	         oos.writeObject(tmpArrList);
+	         oos.close();
+	         fos.close();
+	       }catch(IOException ioe){
+	            ioe.printStackTrace();
+	        }
+		catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static ArrayList<String> readLogStrings(){
+		ArrayList<String> tmpArrList = new ArrayList<String>();
+		//ObservableList<String> obs = null;
+		 try
+	        {
+	            FileInputStream fis = new FileInputStream("LogListFile");
+	            ObjectInputStream ois = new ObjectInputStream(fis);	 
+	            tmpArrList = (ArrayList<String>) ois.readObject();
+	            ois.close();
+	            fis.close();
+	         }catch(IOException ioe){
+	             //ioe.printStackTrace();
+	          }catch(ClassNotFoundException c){
+	             System.out.println("Class not found");
+	             c.printStackTrace();
+	          }
+		 return tmpArrList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

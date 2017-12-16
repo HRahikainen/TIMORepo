@@ -47,7 +47,6 @@ public class MainViewController implements Initializable{
 									+  Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size()));
 		packageErrorLabel.setVisible(false);
-		//logListView.getItems().addAll(LogHandler.readLog());
 		logListView.getItems().addAll(LogHandler.readLogStrings());
 		LogHandler.readPackages();
 		Storage.getInstance().setCount();

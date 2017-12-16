@@ -1,6 +1,8 @@
 package timo;
 
-public abstract class Item {
+import java.io.Serializable;
+
+public abstract class Item implements Serializable{
 	protected double mass;
 	protected double size;
 	protected boolean isFragile;

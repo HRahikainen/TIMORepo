@@ -1,6 +1,8 @@
 package timo;
 
-public class SmartPost {
+import java.io.Serializable;
+
+public class SmartPost implements Serializable {
 	private String code;
 	private String city;
 	private String address;
@@ -47,7 +49,7 @@ public class SmartPost {
 		return this.city + " " + this.postoffice;
 	}
 
-	class Geopoint {
+	class Geopoint implements Serializable {
 		private String lat;
 		private String lng;
 		

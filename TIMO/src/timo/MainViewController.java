@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-import com.sun.glass.ui.Window;
-
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -184,7 +180,7 @@ public class MainViewController implements Initializable{
 		logListView.getItems().add("Packages through system: "
 									+ Storage.getInstance().getCount() +  " Packages in store: " 
 									+ Storage.getInstance().getPackages().size());
-		//LogHandler.writeLog(logListView.getItems());
+		LogHandler.writeLog(logListView.getItems());
 		LogHandler.writeLogStrings(logListView.getItems());
 		LogHandler.writePackages(Storage.getInstance().getPackages());
 		

@@ -12,14 +12,18 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));
+			//FXMLLoader loader = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+			//AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("MainView.fxml"));
+			AnchorPane root = loader.load();
+			MainViewController mvController = loader.getController();
 			Scene mainScene = new Scene(root);
 			mainScene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(mainScene);
 			primaryStage.setTitle("TIMO Package Manager");
 			primaryStage.setMinHeight(800);
 			primaryStage.setMinWidth(800);
-			primaryStage.setOnCloseRequest(e -> Platform.exit()); // Close application on main window close
+			primaryStage.setOnCloseRequest(e -> {mvController.logListEventHandler();Platform.exit();}); // Close application on main window close
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

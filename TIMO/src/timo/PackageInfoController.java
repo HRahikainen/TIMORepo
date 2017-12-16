@@ -49,7 +49,7 @@ public class PackageInfoController implements Initializable {
 	    	// Check if all package info is filled and create package and item accordingly
 	    	Package p = null;
 	    	String packageType = null;
-	    	
+	    	// These radio buttons are linked in a toggle group in FXML
 	    	if(radioBtn1.isSelected()) {
 	    		packageType = "1st class";
 	    	}else if(radioBtn2.isSelected()) {
@@ -80,8 +80,6 @@ public class PackageInfoController implements Initializable {
 	    				errorLabel.setText("Item's dimensions are too big for this package.");
 	    				errorLabel.setVisible(true);
 	    			}
-		    		
-		    		
 	    		}
 	    	}
 	    }

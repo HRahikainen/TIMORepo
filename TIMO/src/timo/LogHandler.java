@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import javafx.collections.ObservableList;
+
 public class LogHandler {
 	private static final String filepath = "./postActionLog.txt";
 	public static ArrayList<String> readLog() {
@@ -18,11 +20,21 @@ public class LogHandler {
 		try {
 			BufferedReader in; 
 			String inputLine;
+			String outputString = "";
 			
 			in = new BufferedReader(new FileReader(filepath));
+			int i = 0;
 			while((inputLine = in.readLine()) != null) {
-    			logList.add(inputLine);
+				if(i < 5) {
+					outputString += inputLine + "\n";
+				}
+				if(i++ == 5){
+					logList.add(outputString);
+					i = 0;
+					outputString = "";
+				}
 			}
+			logList.add(outputString);
 			in.close();
 			
 		} catch (IOException ioe) {
@@ -31,14 +43,14 @@ public class LogHandler {
 		return logList;
 		
 	}
-	public static void writeLog(ArrayList<String> logList) {
+	public static void writeLog(ObservableList<String> observableList) {
 		
 		try {
     			BufferedWriter out;
     			out = new BufferedWriter(new FileWriter(filepath));
     			// Write log tab contents here
-    			for(String s : logList) {
-    				out.write(s);
+    			for(String s : observableList) {
+    				out.write(s + "\n");
     			}
     			out.close();
 		} catch (IOException ex) {

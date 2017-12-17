@@ -1,3 +1,16 @@
+/*
+ * TIMO SmartPost system
+ * version 1.0.0
+ * Authors
+ * Harri Rahikainen
+ * Jesse Tolvanen
+ * 
+ * Date: 17.12.2017
+ * Java version "1.8.0_152"
+ */
+
+
+
 package timo;
 	
 import javafx.application.Application;

@@ -60,10 +60,10 @@ public class LogHandler {
 	            ois.close();
 	            fis.close();
 	         }catch(IOException ioe){
-	             ioe.printStackTrace();
+	             //ioe.printStackTrace();
 	         }catch(ClassNotFoundException c){
 	             System.out.println("Class not found");
-	             c.printStackTrace();
+	             //c.printStackTrace();
 	         }
 	}
 	
@@ -96,10 +96,10 @@ public class LogHandler {
             ois.close();
             fis.close();
 	        }catch(IOException ioe){
-	             ioe.printStackTrace();
+	            // ioe.printStackTrace();
 	        }catch(ClassNotFoundException c){
 	             System.out.println("Class not found");
-	             c.printStackTrace();
+	             //c.printStackTrace();
 	        }
 		 return tmpArrList;
 	}
